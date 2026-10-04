@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unit 3 Prometheus｜草原單字冒險</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky-top:#2f6fd8; --sky-mid:#5d9cf0; --sky-low:#bfe0ff;
+  --grass:#5fbf4f; --grass-dark:#3f9a37;
+  --ribbon:#c8233c; --ribbon-dark:#9c1530;
+  --pink:#f39bb8; --pink-soft:#ffe1ea;
+  --cream:#fff8ec; --cream-edge:#f1e3c8;
+  --ink:#3a2b3f; --ink-soft:#7a6a7e;
+  --gold:#ffc83d; --ok:#43b05c; --bad:#e2556b;
+  --card-shadow:0 10px 0 rgba(30,60,120,.18), 0 18px 30px rgba(20,50,110,.22);
+  --cloud:rgba(255,255,255,.92);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sky-top:#0d1a45; --sky-mid:#22357a; --sky-low:#5a5fa8;
+    --grass:#2f7a3b; --grass-dark:#1f5a2a;
+    --cream:#fdf3e2; --cloud:rgba(220,225,255,.35);
+    --card-shadow:0 10px 0 rgba(0,0,0,.3), 0 18px 30px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --sky-top:#0d1a45; --sky-mid:#22357a; --sky-low:#5a5fa8;
+  --grass:#2f7a3b; --grass-dark:#1f5a2a;
+  --cream:#fdf3e2; --cloud:rgba(220,225,255,.35);
+  --card-shadow:0 10px 0 rgba(0,0,0,.3), 0 18px 30px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;min-height:100%;color:var(--ink);
+  font-family:"M PLUS Rounded 1c","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 45%,var(--sky-low) 80%);
+  background-attachment:fixed;overflow-x:hidden;
+}
+.en{font-family:"Fredoka","Trebuchet MS","Arial Rounded MT Bold",sans-serif}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* scenery */
+.sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.cloud{position:absolute;background:var(--cloud);border-radius:999px;filter:blur(1px);animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:55%;height:160%;left:15%;bottom:20%}
+.cloud::after{width:40%;height:130%;right:12%;bottom:25%}
+.c1{width:220px;height:60px;top:12%;left:-240px;animation-duration:70s}
+.c2{width:150px;height:42px;top:28%;left:-200px;animation-duration:95s;animation-delay:-40s}
+.c3{width:280px;height:70px;top:6%;left:-300px;animation-duration:120s;animation-delay:-80s;opacity:.8}
+@keyframes drift{to{transform:translateX(calc(100vw + 340px))}}
+.meadow{
+  position:fixed;left:0;right:0;bottom:0;height:22vh;min-height:120px;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 40%,#fff 0 2px,transparent 3px),
+    radial-gradient(circle at 30% 70%,#fff 0 2px,transparent 3px),
+    radial-gradient(circle at 55% 35%,#fff 0 2px,transparent 3px),
+    radial-gradient(circle at 75% 65%,#fffbd0 0 2px,transparent 3px),
+    radial-gradient(circle at 90% 30%,#fff 0 2px,transparent 3px),
+    linear-gradient(180deg,var(--grass) 0%,var(--grass-dark) 100%);
+  background-size:180px 90px,180px 90px,180px 90px,180px 90px,180px 90px,100% 100%;
+  border-radius:60% 60% 0 0 / 40px 40px 0 0;
+}
+.stars{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars{opacity:1}}
+:root[data-theme="dark"] .stars{opacity:1}
+.stars i{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.2}}
+
+/* layout */
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:18px 16px 26vh}
+header{color:#fff;text-align:center;padding:10px 0 4px;text-shadow:0 2px 0 rgba(20,40,110,.35)}
+header h1{margin:0;font-size:clamp(1.7rem,5.5vw,2.6rem);font-weight:800;letter-spacing:.02em;line-height:1.15}
+header p{margin:.35rem 0 0;font-weight:700;opacity:.92}
+
+.hud{
+  display:flex;align-items:center;gap:12px;margin:16px 0 12px;padding:10px 14px;
+  background:var(--cream);border-radius:22px;box-shadow:var(--card-shadow);
+}
+.lv{font-weight:800;color:var(--ribbon);white-space:nowrap}
+.lv small{display:block;font-size:.72rem;color:var(--ink-soft);font-weight:700}
+.bar{flex:1;height:14px;background:var(--pink-soft);border-radius:99px;overflow:hidden;border:2px solid #fff}
+.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--ribbon));border-radius:99px;transition:width .6s cubic-bezier(.3,1.6,.5,1)}
+.xp{font-weight:800;white-space:nowrap}
+.iconbtn{border:0;background:var(--pink-soft);border-radius:50%;width:38px;height:38px;font-size:1.1rem;flex:none}
+
+nav{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap;justify-content:center}
+nav button{
+  border:0;padding:9px 16px;border-radius:99px;font-weight:800;color:var(--ribbon-dark);
+  background:rgba(255,255,255,.75);box-shadow:0 4px 0 rgba(20,50,120,.2);transition:transform .15s
+}
+nav button[aria-selected="true"]{background:var(--ribbon);color:#fff;box-shadow:0 4px 0 var(--ribbon-dark)}
+nav button:active{transform:translateY(3px);box-shadow:none}
+.panel{display:none}.panel.on{display:block}
+
+.chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.chips button{border:2px solid #fff;background:transparent;color:#fff;padding:5px 12px;border-radius:99px;font-weight:700;font-size:.9rem}
+.chips button.on{background:#fff;color:var(--sky-top)}
+
+/* flashcard */
+.stage{perspective:1200px;max-width:440px;margin:0 auto}
+.card{position:relative;height:330px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.inner{position:absolute;inset:0;transition:transform .65s cubic-bezier(.4,1.5,.5,1);transform-style:preserve-3d}
+.card.flipped .inner{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--cream);border-radius:28px;box-shadow:var(--card-shadow);
+  border:3px solid #fff;padding:46px 22px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center
+}
+.face::after{content:"";position:absolute;inset:8px;border:2px dashed var(--cream-edge);border-radius:22px;pointer-events:none}
+.card:not(.flipped) .back,.card.flipped .front{pointer-events:none}
+.exline{display:flex;gap:8px;align-items:flex-start;justify-content:center;text-align:left}
+.exsay{flex:none;border:0;background:var(--pink-soft);border-radius:50%;width:34px;height:34px;font-size:1rem;margin-top:2px;position:relative;z-index:3}
+.exsay.playing{animation:pop .5s infinite}
+.autorow{display:flex;justify-content:center;margin-top:12px}
+.autorow label{color:#fff;font-weight:700;display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:99px;cursor:pointer}
+.back{transform:rotateY(180deg);justify-content:flex-start;padding-top:52px}
+.bow{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:96px;height:56px;z-index:2}
+.word{font-size:clamp(2rem,8vw,2.7rem);font-weight:700;color:var(--ink);line-height:1.1;word-break:break-word}
+.pos{margin-top:8px;color:var(--ink-soft);font-weight:700}
+.hint{position:absolute;bottom:18px;font-size:.82rem;color:var(--ink-soft)}
+.zh{font-size:1.6rem;font-weight:800;color:var(--ribbon)}
+.ex{margin-top:12px;font-size:1.02rem;line-height:1.55;max-width:34ch}
+.ex .en{font-weight:600}
+.ex mark{background:linear-gradient(transparent 55%,#ffd6e2 55%);color:inherit;padding:0 2px}
+.tip{margin-top:10px;font-size:.85rem;background:#fff0f3;color:var(--ribbon-dark);padding:6px 10px;border-radius:12px;font-weight:700}
+.speak{border:0;background:var(--sky-low);color:#183c80;border-radius:99px;padding:6px 14px;font-weight:800;margin-top:14px;position:relative;z-index:3}
+.known-badge{position:absolute;top:14px;right:16px;font-size:1.4rem;z-index:3}
+.cardnav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{border:0;padding:12px 18px;border-radius:18px;font-weight:800;font-size:1rem;box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .12s}
+.btn:active{transform:translateY(4px);box-shadow:none}
+.btn.round{width:50px;height:50px;padding:0;border-radius:50%;background:#fff;color:var(--sky-top);font-size:1.3rem}
+.btn.no{background:#fff;color:var(--ink)}
+.btn.yes{background:var(--ok);color:#fff;box-shadow:0 5px 0 #2d8443}
+.btn.main{background:var(--ribbon);color:#fff;box-shadow:0 5px 0 var(--ribbon-dark)}
+.count{color:#fff;font-weight:800;text-align:center;margin-top:12px;text-shadow:0 1px 0 rgba(0,0,0,.2)}
+
+/* quiz */
+.box{background:var(--cream);border-radius:26px;box-shadow:var(--card-shadow);padding:22px 20px;border:3px solid #fff;position:relative}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.mode{border:0;text-align:left;background:#fff;border-radius:20px;padding:16px;box-shadow:0 5px 0 var(--cream-edge);color:var(--ink)}
+.mode b{display:block;font-size:1.1rem;color:var(--ribbon)}
+.mode span{font-size:.88rem;color:var(--ink-soft)}
+.qtop{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:var(--ink-soft);margin-bottom:10px}
+.combo{color:var(--ribbon)}
+.qtext{font-size:1.25rem;line-height:1.6;font-weight:600;margin:6px 0 18px}
+.qtext .blank{display:inline-block;min-width:88px;border-bottom:3px solid var(--pink);text-align:center;color:var(--ribbon)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.opts{grid-template-columns:1fr}}
+.opt{border:3px solid var(--cream-edge);background:#fff;border-radius:16px;padding:12px;font-size:1.08rem;font-weight:600;color:var(--ink);transition:transform .12s}
+.opt:hover{transform:translateY(-2px)}
+.opt.right{background:#e5f7e8;border-color:var(--ok);animation:pop .4s}
+.opt.wrong{background:#fde7ea;border-color:var(--bad);animation:shake .4s}
+.opt:disabled{cursor:default}
+@keyframes pop{50%{transform:scale(1.07)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.feedback{margin-top:14px;padding:12px 14px;border-radius:16px;font-weight:700;line-height:1.55;display:none}
+.feedback.show{display:block}
+.feedback.good{background:#e5f7e8;color:#22693a}
+.feedback.bad{background:#fde7ea;color:#9a2438}
+.qfoot{display:flex;justify-content:flex-end;gap:10px;margin-top:14px}
+.result{text-align:center}
+.result .big{font-size:3rem;font-weight:800;color:var(--ribbon)}
+.stars-row{font-size:2.2rem;letter-spacing:6px;margin:6px 0}
+
+/* achievements */
+.achs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.ach{background:#fff;border-radius:20px;padding:14px 10px;text-align:center;box-shadow:0 5px 0 var(--cream-edge);position:relative}
+.ach .ic{font-size:2.2rem;display:block;filter:grayscale(1);opacity:.35}
+.ach b{display:block;margin-top:6px}
+.ach small{color:var(--ink-soft);font-size:.8rem;display:block;margin-top:3px}
+.ach.got{background:linear-gradient(180deg,#fff,#fff3cf)}
+.ach.got .ic{filter:none;opacity:1}
+.ach.got::after{content:"✓";position:absolute;top:8px;right:12px;color:var(--ok);font-weight:800}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;text-align:center}
+@media (max-width:480px){.statgrid{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#fff;border-radius:16px;padding:10px}
+.stat b{display:block;font-size:1.5rem;color:var(--sky-top)}
+.stat small{color:var(--ink-soft);font-weight:700}
+
+.mist{display:flex;flex-direction:column;gap:10px}
+.mistake{background:#fff;border-radius:16px;padding:12px 14px;border-left:6px solid var(--bad)}
+.mistake .times{float:right;color:var(--bad);font-weight:800;font-size:.85rem}
+.empty{text-align:center;color:var(--ink-soft);padding:20px 0}
+h2{margin:0 0 12px;font-size:1.3rem;color:var(--ribbon)}
+.reset{margin-top:18px;background:none;border:0;color:var(--ink-soft);text-decoration:underline;font-size:.85rem}
+
+/* toast + fx */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
+.toast{
+  position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 16px);transform:translate(-50%,-140%);z-index:60;
+  background:var(--cream);border:3px solid var(--gold);border-radius:20px;padding:10px 18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);font-weight:800;display:flex;align-items:center;gap:10px;
+  transition:transform .5s cubic-bezier(.3,1.6,.5,1);max-width:92vw
+}
+.toast.show{transform:translate(-50%,0)}
+.toast .ic{font-size:1.8rem}
+.toast small{display:block;color:var(--ink-soft);font-weight:700}
+.floatxp{position:fixed;z-index:55;font-weight:800;color:var(--gold);text-shadow:0 2px 0 var(--ribbon-dark);pointer-events:none;animation:up 1s ease-out forwards;font-size:1.2rem}
+@keyframes up{to{transform:translateY(-60px);opacity:0}}
+@media (prefers-reduced-motion: reduce){
+  .cloud,.stars i{animation:none}
+  .inner{transition-duration:.01s}
+}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true">
+  <div class="stars" id="stars"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+</div>
+<div class="meadow" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="wrap">
+  <header>
+    <h1>Unit 3 普羅米修斯的火種</h1>
+    <p class="en">Prometheus: The Champion of Humankind</p>
+  </header>
+
+  <div class="hud">
+    <div class="lv"><span id="lvNum">Lv.1</span><small id="lvTitle">草原見習生</small></div>
+    <div class="bar" aria-label="經驗值進度"><b id="xpBar"></b></div>
+    <div class="xp"><span id="xpNum">0</span> XP</div>
+    <button class="iconbtn" id="muteBtn" aria-label="音效開關">🔔</button>
+  </div>
+
+  <nav role="tablist">
+    <button role="tab" data-tab="cards" aria-selected="true">🎴 翻卡</button>
+    <button role="tab" data-tab="quiz" aria-selected="false">✏️ 測驗</button>
+    <button role="tab" data-tab="ach" aria-selected="false">🏆 成就</button>
+    <button role="tab" data-tab="mist" aria-selected="false">📒 錯題本</button>
+  </nav>
+
+  <!-- cards -->
+  <section class="panel on" id="p-cards">
+    <div class="chips" id="deckChips">
+      <button data-deck="all" class="on">全部</button>
+      <button data-deck="word">單字</button>
+      <button data-deck="phrase">片語</button>
+      <button data-deck="todo">還沒記住</button>
+    </div>
+    <div class="stage">
+      <div class="card" id="card" tabindex="0" aria-label="點一下翻面">
+        <div class="inner">
+          <div class="face front">
+            <svg class="bow" viewBox="0 0 96 56" aria-hidden="true"><path d="M48 28 C30 6 6 4 6 22 C6 40 30 40 48 28Z" fill="#c8233c"/><path d="M48 28 C66 6 90 4 90 22 C90 40 66 40 48 28Z" fill="#c8233c"/><path d="M42 30 L30 54 L40 50 L46 56 L48 32Z M54 30 L66 54 L56 50 L50 56 L48 32Z" fill="#9c1530"/><circle cx="48" cy="28" r="8" fill="#e23a52"/></svg>
+            <span class="known-badge" id="fBadge"></span>
+            <div class="word en" id="fWord"></div>
+            <div class="pos" id="fPos"></div>
+            <button class="speak" id="fSpeak">🔊 聽發音</button>
+            <div class="hint">點卡片翻面</div>
+          </div>
+          <div class="face back">
+            <svg class="bow" viewBox="0 0 96 56" aria-hidden="true"><path d="M48 28 C30 6 6 4 6 22 C6 40 30 40 48 28Z" fill="#c8233c"/><path d="M48 28 C66 6 90 4 90 22 C90 40 66 40 48 28Z" fill="#c8233c"/><path d="M42 30 L30 54 L40 50 L46 56 L48 32Z M54 30 L66 54 L56 50 L50 56 L48 32Z" fill="#9c1530"/><circle cx="48" cy="28" r="8" fill="#e23a52"/></svg>
+            <div class="zh" id="bZh"></div>
+            <div class="ex" id="bEx"></div>
+            <div class="tip" id="bTip" hidden></div>
+            <div class="speakrow"><button class="speak" id="bSpeak">🔊 念例句</button> <button class="speak" id="bSlow">🐢 慢速</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cardnav">
+      <button class="btn round" id="prevBtn" aria-label="上一張">◀</button>
+      <button class="btn no" id="noBtn">再看看</button>
+      <button class="btn yes" id="yesBtn">記住了 ✓</button>
+      <button class="btn round" id="nextBtn" aria-label="下一張">▶</button>
+    </div>
+    <div class="count" id="cardCount"></div>
+    <div class="autorow"><label><input type="checkbox" id="autoSay"> 翻到背面自動念例句</label></div>
+  </section>
+
+  <!-- quiz -->
+  <section class="panel" id="p-quiz">
+    <div class="box" id="quizBox"></div>
+  </section>
+
+  <!-- achievements -->
+  <section class="panel" id="p-ach">
+    <div class="box">
+      <div class="statgrid" id="statGrid"></div>
+      <h2>成就徽章</h2>
+      <div class="achs" id="achList"></div>
+      <button class="reset" id="resetBtn">清除所有進度</button>
+    </div>
+  </section>
+
+  <!-- mistakes -->
+  <section class="panel" id="p-mist">
+    <div class="box">
+      <h2>錯題本</h2>
+      <div class="mist" id="mistList"></div>
+      <div class="qfoot"><button class="btn main" id="mistQuizBtn">練習錯題</button></div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const CARDS = [
+ {id:"civilization",t:"word",w:"civilization",p:"n.",zh:"文明",ex:"The new port and bridges brought <mark>civilization</mark> to the rather isolated island.",tip:"bring A to B 帶給 B 某物；別寫成 conflict"},
+ {id:"isolated",t:"word",w:"isolated",p:"adj.",zh:"偏遠的；隔絕的",ex:"The new port and bridges brought civilization to the rather <mark>isolated</mark> island."},
+ {id:"universal",t:"word",w:"universal",p:"adj.",zh:"普遍的；全人類的",ex:"There seems to be a <mark>universal</mark> fear of death among all people."},
+ {id:"enable",t:"word",w:"enable",p:"v.",zh:"使能夠",ex:"Powerful telescopes <mark>enable</mark> us to observe distant planets.",tip:"enable + 人 + to V"},
+ {id:"observe",t:"word",w:"observe",p:"v.",zh:"觀察",ex:"Powerful telescopes enable us to <mark>observe</mark> distant planets."},
+ {id:"enormous",t:"word",w:"enormous",p:"adj.",zh:"巨大的；廣大的",ex:"Powerful telescopes enable us to observe distant planets, moons, and stars in this <mark>enormous</mark> universe."},
+ {id:"universe",t:"word",w:"universe",p:"n.",zh:"宇宙",ex:"Powerful telescopes enable us to observe distant planets, moons, and stars in this enormous <mark>universe</mark>."},
+ {id:"massage",t:"word",w:"massage",p:"n.",zh:"按摩",ex:"A foot <mark>massage</mark> may seem like torture at the time."},
+ {id:"torture",t:"word",w:"torture",p:"n.",zh:"折磨；痛苦",ex:"A foot massage may seem like <mark>torture</mark> at the time."},
+ {id:"refreshed",t:"word",w:"refreshed",p:"adj.",zh:"恢復精神的",ex:"Afterward you will feel relaxed and <mark>refreshed</mark>.",tip:"修飾「人」的感覺用 -ed"},
+ {id:"generous",t:"word",w:"generous",p:"adj.",zh:"慷慨的；大方的",ex:"It was very <mark>generous</mark> of Jen to give her niece all that jewelry.",tip:"It is + 性格形容詞 + of 人 + to V"},
+ {id:"jewelry",t:"word",w:"jewelry",p:"n.",zh:"珠寶（不可數）",ex:"It was very generous of Jen to give her niece all that expensive <mark>jewelry</mark>.",tip:"拼字 j-e-w-e-l-r-y，不是 juley"},
+ {id:"conflict",t:"word",w:"conflict",p:"n.",zh:"衝突",ex:"They soon came into <mark>conflict</mark> with each other."},
+ {id:"benefit",t:"word",w:"benefit",p:"n.",zh:"益處；好處",ex:"Free education would be of great <mark>benefit</mark> to society."},
+ {id:"slaughter",t:"word",w:"slaughter",p:"n.",zh:"屠殺",ex:"A civil war led to the <mark>slaughter</mark> of thousands of innocent citizens."},
+ {id:"innocent",t:"word",w:"innocent",p:"adj.",zh:"無辜的",ex:"A civil war broke out and led to the slaughter of thousands of <mark>innocent</mark> citizens."},
+ {id:"banish",t:"word",w:"banish",p:"v.",zh:"放逐；驅逐",ex:"The prince was <mark>banished</mark> from the kingdom."},
+ {id:"victim",t:"word",w:"victim",p:"n.",zh:"受害者；災民",ex:"<mark>Victims</mark> of the huge flood are seeking shelter."},
+ {id:"seek",t:"word",w:"seek",p:"v.",zh:"尋求",ex:"Victims are <mark>seeking</mark> shelter in the local school hall."},
+ {id:"shelter",t:"word",w:"shelter",p:"n.",zh:"庇護；避難所",ex:"Victims are seeking <mark>shelter</mark> in the local school hall."},
+ {id:"furious",t:"word",w:"furious",p:"adj.",zh:"盛怒的",ex:"People were <mark>furious</mark> about the government.",tip:"furious about / at / with，不是 for"},
+ {id:"distribute",t:"word",w:"distribute",p:"v.",zh:"分配",ex:"People were furious about the government for not <mark>distributing</mark> funds evenly among schools in the area."},
+ {id:"evenly",t:"word",w:"evenly",p:"adv.",zh:"平均地",ex:"People were furious about the government for not distributing funds <mark>evenly</mark> among schools in the area."},
+ {id:"punish",t:"word",w:"punish",p:"v.",zh:"處罰",ex:"Benjamin was <mark>punished</mark> by his parents for coming home late."},
+ {id:"identity",t:"word",w:"identity",p:"n.",zh:"身分",ex:"It is easy to fall victim to <mark>identity</mark> theft."},
+ {id:"theft",t:"word",w:"theft",p:"n.",zh:"偷竊",ex:"It is easy to fall victim to identity <mark>theft</mark>."},
+ {id:"regardless",t:"phrase",w:"regardless of",p:"片語",zh:"不論；不管",ex:"<mark>Regardless of</mark> race or culture, there seems to be a universal fear of death."},
+ {id:"comeinto",t:"phrase",w:"come into conflict with",p:"片語",zh:"與……發生衝突",ex:"Both nations soon <mark>came into conflict with</mark> each other.",tip:"是 into，不是 in"},
+ {id:"benefitto",t:"phrase",w:"be of benefit to",p:"片語",zh:"對……有好處",ex:"Free education would <mark>be of great benefit to</mark> society.",tip:"對象用 to，不是 in"},
+ {id:"breakout",t:"phrase",w:"break out",p:"片語",zh:"（戰爭、災害）爆發",ex:"A civil war <mark>broke out</mark>."},
+ {id:"banishfrom",t:"phrase",w:"be banished from",p:"片語",zh:"被逐出（某地）",ex:"The prince <mark>was banished from</mark> the kingdom.",tip:"離開用 from，不是 of"},
+ {id:"seekshelter",t:"phrase",w:"seek shelter",p:"片語",zh:"尋求庇護；避難",ex:"Flood victims are <mark>seeking shelter</mark> in the school hall."},
+ {id:"punishfor",t:"phrase",w:"be punished for",p:"片語",zh:"因……被處罰",ex:"Benjamin <mark>was punished</mark> by his parents <mark>for</mark> coming home late.",tip:"by 後接人，for 後接原因"},
+ {id:"feedon",t:"phrase",w:"feed on",p:"片語",zh:"以……為食",ex:"Omnivores can <mark>feed on</mark> both meat and plants.",tip:"是 on，不是 in"},
+ {id:"runout",t:"phrase",w:"run out of",p:"片語",zh:"用盡；耗盡",ex:"The bus <mark>ran out of</mark> gas."},
+ {id:"makeup",t:"phrase",w:"make up for",p:"片語",zh:"彌補；補償",ex:"Her mom bought her new shoes to <mark>make up for</mark> it."},
+ {id:"asaresult",t:"phrase",w:"as a result",p:"片語",zh:"因此；結果",ex:"They made a fire and, <mark>as a result</mark>, were safe from wild beasts."},
+ {id:"safefrom",t:"phrase",w:"safe from",p:"片語",zh:"免於……的危險",ex:"They were <mark>safe from</mark> wild beasts."},
+ {id:"fallvictim",t:"phrase",w:"fall victim to",p:"片語",zh:"成為……的受害者",ex:"It is easy to <mark>fall victim to</mark> identity theft."},
+ {id:"setstage",t:"phrase",w:"set the stage for",p:"片語",zh:"為……奠定基礎",ex:"The smartphone <mark>set the stage for</mark> thousands of apps."}
+];
+
+const QS = [
+ {id:"s1",s:"The new port and bridges brought ___ to the rather isolated island.",a:"civilization",o:["conflict","universe","jewelry"],zh:"新的港口和橋樑給這座偏遠的島嶼帶來文明。",tip:"bring A to B；常見錯誤是寫成 conflict。"},
+ {id:"s2",s:"The new port and bridges brought civilization to the rather ___ island.",a:"isolated",o:["generous","furious","refreshed"],zh:"新的港口和橋樑給這座偏遠的島嶼帶來文明。"},
+ {id:"s3",s:"___ of race or culture, there seems to be a universal fear of death among all people.",a:"Regardless",o:["As","Because","Instead"],zh:"不論種族或文化，所有人似乎都普遍害怕死亡。",tip:"regardless of 不論。"},
+ {id:"s4",s:"There seems to be a ___ fear of death among all people.",a:"universal",o:["innocent","isolated","evenly"],zh:"所有人之間似乎都有對死亡的普遍恐懼。"},
+ {id:"s5",s:"Powerful telescopes enable us ___ observe distant planets.",a:"to",o:["for","of","from"],p:1,zh:"強力望遠鏡使我們能觀察遙遠的行星。",tip:"enable + 人 + to V。"},
+ {id:"s6",s:"Powerful telescopes enable us to observe distant planets, moons, and stars in this enormous ___.",a:"universe",o:["universal","civilization","stage"],zh:"在這廣大宇宙中遙遠的行星、衛星與恆星。",tip:"universe 是名詞，universal 是形容詞。"},
+ {id:"s7",s:"A foot massage may seem like ___ at the time.",a:"torture",o:["shelter","benefit","theft"],zh:"腳底按摩當下或許像是折磨。"},
+ {id:"s8",s:"Afterward you will feel relaxed and ___.",a:"refreshed",o:["refreshing","refresh","refreshes"],zh:"之後你會感到放鬆、神清氣爽。",tip:"修飾人的感覺用 -ed。"},
+ {id:"s9",s:"It was very generous ___ Jen to give her niece all that expensive jewelry.",a:"of",o:["for","to","with"],p:1,zh:"Jen 很慷慨，把昂貴珠寶都送給姪女。",tip:"It is + 性格形容詞 + of 人 + to V。"},
+ {id:"s10",s:"Jen gave her niece all that expensive ___.",a:"jewelry",o:["juley","jewlery","jewelries"],zh:"Jen 把那些昂貴的珠寶送給姪女。",tip:"拼字 jewelry，不可數，沒有複數。"},
+ {id:"s11",s:"Both nations believed the island belonged to them, so they soon came ___ conflict with each other.",a:"into",o:["in","to","on"],p:1,zh:"兩國都認為島屬於自己，很快就發生衝突。",tip:"come into conflict with，不是 in。"},
+ {id:"s12",s:"Free education for all would be of great benefit ___ society.",a:"to",o:["in","for","of"],p:1,zh:"大眾免費教育對社會有很大好處。",tip:"be of benefit to，不是 in。"},
+ {id:"s13",s:"A civil war broke ___ and led to the slaughter of thousands of innocent citizens.",a:"out",o:["up","off","down"],p:1,zh:"內戰爆發，導致數千位無辜公民被屠殺。"},
+ {id:"s14",s:"The war led to the slaughter of thousands of ___ citizens.",a:"innocent",o:["furious","generous","universal"],zh:"戰爭導致數千位無辜公民被屠殺。"},
+ {id:"s15",s:"The prince was banished ___ the kingdom for trying to kill the king.",a:"from",o:["of","by","to"],p:1,zh:"王子因企圖弒君被逐出王國。",tip:"be banished from，不是 of。"},
+ {id:"s16",s:"Victims of the huge flood are seeking ___ in the local school hall.",a:"shelter",o:["torture","theft","massage"],zh:"大水災的災民正在學校禮堂避難。"},
+ {id:"s17",s:"People were furious ___ the government for not distributing funds evenly.",a:"about",o:["for","of","on"],p:1,zh:"人民對政府沒有平均分配資金感到憤怒。",tip:"furious about / at / with，不是 for。"},
+ {id:"s18",s:"The government did not distribute funds ___ among schools in the area.",a:"evenly",o:["even","evening","evenness"],zh:"政府沒有把資金平均分配給該區學校。",tip:"修飾動詞用副詞 evenly。"},
+ {id:"s19",s:"Benjamin was punished by his parents ___ coming home late again.",a:"for",o:["by","of","with"],p:1,zh:"Benjamin 因又晚回家被父母處罰。",tip:"by 後接人，for 後接原因。"},
+ {id:"s20",s:"Omnivores are animals that can feed ___ both meat and plants.",a:"on",o:["in","at","with"],p:1,zh:"雜食動物是能以肉和植物為食的動物。",tip:"feed on，不是 in。"},
+ {id:"s21",s:"When the bus ran ___ of gas, a friendly truck driver offered everybody a ride.",a:"out",o:["off","up","away"],p:1,zh:"公車沒油時，一位友善的卡車司機載了大家。"},
+ {id:"s22",s:"Amy was wrongly punished, so her mom bought her new shoes to make up ___ it.",a:"for",o:["to","with","of"],p:1,zh:"Amy 被錯罰，媽媽買新鞋補償她。"},
+ {id:"s23",s:"The hikers made a large fire and, as a result, were safe ___ wild beasts.",a:"from",o:["of","to","with"],p:1,zh:"登山客生了大火，因此免於野獸侵襲。"},
+ {id:"s24",s:"If you never change your password, it is easy to fall victim ___ identity theft.",a:"to",o:["for","of","with"],p:1,zh:"從不改密碼，很容易成為身分盜用的受害者。"},
+ {id:"s25",s:"If you never change your password, it is easy to fall victim to identity ___.",a:"theft",o:["thief","theory","thrift"],zh:"很容易成為身分盜用的受害者。",tip:"theft 偷竊（行為），thief 小偷（人）。"},
+ {id:"s26",s:"The invention of the smartphone set the ___ for the development of thousands of apps.",a:"stage",o:["step","state","scene"],zh:"智慧型手機的發明為數千種 App 的發展奠定基礎。"},
+ {id:"s27",s:"The hikers made a large fire and, as a ___, were safe from wild beasts.",a:"result",o:["reason","return","rest"],zh:"登山客生了大火，因此免於野獸侵襲。"}
+];
+
+const LEVELS=["草原見習生","藍天學徒","雲朵騎士","彩虹魔導士","星辰守護者","普羅米修斯之火"];
+const ACHS=[
+ {id:"flip1",ic:"🎴",n:"第一張卡",d:"翻開第一張卡片",ok:s=>s.flips>=1},
+ {id:"flip50",ic:"🌀",n:"翻卡達人",d:"翻卡 50 次",ok:s=>s.flips>=50},
+ {id:"listen20",ic:"🎧",n:"耳朵好靈",d:"聽發音 20 次",ok:s=>s.listen>=20},
+ {id:"know10",ic:"🌱",n:"發芽了",d:"記住 10 張卡",ok:s=>s.known.length>=10},
+ {id:"know25",ic:"🌷",n:"開花了",d:"記住 25 張卡",ok:s=>s.known.length>=25},
+ {id:"knowall",ic:"🌈",n:"全部收服",d:`記住全部 ${CARDS.length} 張卡`,ok:s=>s.known.length>=CARDS.length},
+ {id:"quiz1",ic:"✏️",n:"初次挑戰",d:"完成一次測驗",ok:s=>s.quizzes>=1},
+ {id:"quiz10",ic:"📚",n:"勤勞小蜜蜂",d:"完成 10 次測驗",ok:s=>s.quizzes>=10},
+ {id:"perfect",ic:"💯",n:"滿分！",d:"任一測驗全對",ok:s=>s.perfect>=1},
+ {id:"prep",ic:"🎯",n:"介系詞剋星",d:"介系詞特訓全對",ok:s=>s.prepPerfect>=1},
+ {id:"streak5",ic:"🔥",n:"小火苗",d:"連續答對 5 題",ok:s=>s.bestStreak>=5},
+ {id:"streak15",ic:"☄️",n:"盜火者",d:"連續答對 15 題",ok:s=>s.bestStreak>=15},
+ {id:"fixer",ic:"🩹",n:"知錯能改",d:"在錯題練習答對 5 題",ok:s=>s.fixed>=5},
+ {id:"xp1000",ic:"👑",n:"火種守護者",d:"累積 1000 XP",ok:s=>s.xp>=1000}
+];
+
+/* ---------- state ---------- */
+const KEY="u3-prometheus-v1";
+const fresh=()=>({autoSay:false,xp:0,flips:0,listen:0,known:[],quizzes:0,perfect:0,prepPerfect:0,bestStreak:0,fixed:0,ach:{},wrong:{},muted:false});
+let S=fresh();
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(fresh(),JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- sound ---------- */
+let actx;
+function ac(){if(!actx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;actx=new C();}if(actx.state==="suspended")actx.resume();return actx;}
+function tone(f,dur,type="sine",vol=.14,delay=0,f2){
+  if(S.muted)return;const c=ac();if(!c)return;
+  const o=c.createOscillator(),g=c.createGain(),t=c.currentTime+delay;
+  o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g).connect(c.destination);o.start(t);o.stop(t+dur+.05);
+}
+const SFX={
+  flip:()=>{tone(420,.12,"triangle",.1,0,900)},
+  tap:()=>tone(880,.06,"sine",.08),
+  yes:()=>{[784,1047,1319].forEach((f,i)=>tone(f,.18,"sine",.12,i*.07))},
+  right:()=>{[523,659,784,1047].forEach((f,i)=>tone(f,.2,"triangle",.13,i*.06))},
+  wrong:()=>{tone(240,.18,"square",.06);tone(180,.25,"square",.06,.12)},
+  ach:()=>{[523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,.22,"triangle",.13,i*.09));tone(2093,.6,"sine",.05,.6)},
+  level:()=>{[392,523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.25,"sine",.12,i*.07))}
+};
+
+/* ---------- speech ---------- */
+let voice=null;
+function pickVoice(){if(!("speechSynthesis" in window))return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google|Jenny|Aria/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,rate=.88,btn){
+  if(!("speechSynthesis" in window)){toast("🔇","這個瀏覽器不支援發音");return;}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g,"").replace(/\.\.\./g,""));
+  u.lang="en-US";u.rate=rate;
+  if(btn){btn.classList.add("playing");u.onend=u.onerror=()=>btn.classList.remove("playing");}if(voice)u.voice=voice;speechSynthesis.speak(u);
+  S.listen++;save();checkAch();
+}
+
+/* ---------- fx ---------- */
+const cv=document.getElementById("fx"),cx=cv.getContext("2d");let parts=[],raf=null;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function resize(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
+addEventListener("resize",resize);resize();
+const COLORS=["#f39bb8","#c8233c","#ffc83d","#ffffff","#8fd0ff","#7ed37a"];
+function burst(x,y,n=30,spread=1){
+  if(reduce)return;
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=(2+Math.random()*5)*spread;
+    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-3,r:3+Math.random()*4,c:COLORS[i%COLORS.length],life:60+Math.random()*40,rot:Math.random()*6,shape:Math.random()<.4?"star":"petal"});}
+  if(!raf)loop();
+}
+function rain(){for(let i=0;i<8;i++)setTimeout(()=>burst(Math.random()*innerWidth,innerHeight*.3*Math.random(),22,1.3),i*120);}
+function drawStar(r){cx.beginPath();for(let i=0;i<10;i++){const rr=i%2?r/2:r,a=i*Math.PI/5;cx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}cx.closePath();cx.fill();}
+function loop(){
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  parts=parts.filter(p=>p.life>0);
+  for(const p of parts){p.vy+=.15;p.vx*=.98;p.x+=p.vx;p.y+=p.vy;p.rot+=.1;p.life--;
+    cx.save();cx.globalAlpha=Math.min(1,p.life/30);cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillStyle=p.c;
+    if(p.shape==="star")drawStar(p.r*1.4);else{cx.beginPath();cx.ellipse(0,0,p.r,p.r/2,0,0,Math.PI*2);cx.fill();}
+    cx.restore();}
+  raf=parts.length?requestAnimationFrame(loop):(cx.clearRect(0,0,innerWidth,innerHeight),null);
+}
+function floatXP(el,amt){const r=el.getBoundingClientRect(),d=document.createElement("div");d.className="floatxp en";d.textContent="+"+amt+" XP";d.style.left=(r.left+r.width/2-30)+"px";d.style.top=(r.top-10)+"px";document.body.appendChild(d);setTimeout(()=>d.remove(),1000);}
+let toastQ=[],toastOn=false;
+function toast(ic,title,sub=""){toastQ.push({ic,title,sub});if(!toastOn)nextToast();}
+function nextToast(){const t=toastQ.shift();if(!t){toastOn=false;return;}toastOn=true;const el=document.getElementById("toast");
+  el.innerHTML=`<span class="ic">${t.ic}</span><div>${t.title}${t.sub?`<small>${t.sub}</small>`:""}</div>`;el.classList.add("show");
+  setTimeout(()=>{el.classList.remove("show");setTimeout(nextToast,450);},2300);}
+
+/* ---------- xp / level / achievements ---------- */
+function level(xp){return Math.floor(xp/150)+1}
+function addXP(n,el){const before=level(S.xp);S.xp+=n;if(el)floatXP(el,n);
+  const after=level(S.xp);if(after>before){SFX.level();rain();toast("⭐",`升級！Lv.${after}`,LEVELS[Math.min(after-1,LEVELS.length-1)]);}
+  save();renderHUD();checkAch();}
+function renderHUD(){const lv=level(S.xp);document.getElementById("lvNum").textContent="Lv."+lv;
+  document.getElementById("lvTitle").textContent=LEVELS[Math.min(lv-1,LEVELS.length-1)];
+  document.getElementById("xpNum").textContent=S.xp;document.getElementById("xpBar").style.width=((S.xp%150)/150*100)+"%";
+  document.getElementById("muteBtn").textContent=S.muted?"🔕":"🔔";}
+function checkAch(){let got=false;for(const a of ACHS){if(!S.ach[a.id]&&a.ok(S)){S.ach[a.id]=Date.now();got=true;
+  setTimeout(()=>{SFX.ach();rain();},150);toast(a.ic,"解鎖成就："+a.n,a.d);}}
+  if(got){save();renderAch();}}
+
+/* ---------- flashcards ---------- */
+let deck="all",list=[],idx=0;
+const cardEl=document.getElementById("card");
+function buildDeck(){
+  list=CARDS.filter(c=>deck==="all"||(deck==="todo"?!S.known.includes(c.id):c.t===deck));
+  if(idx>=list.length)idx=0;renderCard();
+}
+function renderCard(){
+  const wasFlipped=cardEl.classList.contains("flipped");
+  cardEl.classList.remove("flipped");
+  const c=list[idx];
+  if(!c){document.getElementById("fWord").textContent="全部記住了！";document.getElementById("fPos").textContent="換別的牌組，或去測驗試試";
+    document.getElementById("fBadge").textContent="🌈";document.getElementById("cardCount").textContent="";return;}
+  setTimeout(()=>{ // swap back after flip resets
+    document.getElementById("bZh").textContent=c.zh;
+    document.getElementById("bEx").innerHTML=`<span class="en">${c.ex}</span>`;
+    const tip=document.getElementById("bTip");tip.hidden=!c.tip;tip.textContent=c.tip?"⚠️ "+c.tip:"";
+  },wasFlipped?320:0);
+  document.getElementById("fWord").textContent=c.w;document.getElementById("fPos").textContent=c.p;
+  document.getElementById("fBadge").textContent=S.known.includes(c.id)?"⭐":"";
+  document.getElementById("cardCount").textContent=`${idx+1} / ${list.length}　已記住 ${S.known.length} / ${CARDS.length}`;
+}
+function flip(){if(!list[idx])return;cardEl.classList.toggle("flipped");if(S.autoSay&&cardEl.classList.contains("flipped"))setTimeout(()=>speak(list[idx].ex),350);SFX.flip();S.flips++;if(S.flips%5===0)addXP(1);save();checkAch();}
+cardEl.addEventListener("click",e=>{if(e.target.closest(".speak"))return;flip();});
+cardEl.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();}if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1);});
+document.getElementById("fSpeak").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].w)};
+document.getElementById("bSpeak").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].ex,.88,e.currentTarget)};
+document.getElementById("bSlow").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].ex,.6,e.currentTarget)};
+const autoBox=document.getElementById("autoSay");autoBox.checked=!!S.autoSay;
+autoBox.onchange=()=>{S.autoSay=autoBox.checked;save();};
+function go(d){if(!list.length)return;idx=(idx+d+list.length)%list.length;SFX.tap();renderCard();}
+document.getElementById("prevBtn").onclick=()=>go(-1);
+document.getElementById("nextBtn").onclick=()=>go(1);
+document.getElementById("noBtn").onclick=()=>{const c=list[idx];if(!c)return;S.known=S.known.filter(k=>k!==c.id);save();go(1);};
+document.getElementById("yesBtn").onclick=e=>{const c=list[idx];if(!c)return;
+  const r=cardEl.getBoundingClientRect();SFX.yes();burst(r.left+r.width/2,r.top+r.height/3,26);
+  if(!S.known.includes(c.id)){S.known.push(c.id);addXP(5,e.currentTarget);}save();
+  if(deck==="todo"){buildDeck();}else go(1);checkAch();};
+document.querySelectorAll("#deckChips button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#deckChips button").forEach(x=>x.classList.toggle("on",x===b));deck=b.dataset.deck;idx=0;SFX.tap();buildDeck();});
+
+/* ---------- quiz ---------- */
+const qBox=document.getElementById("quizBox");
+let Q=null;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+function vocabQs(n){return shuffle(CARDS).slice(0,n).map(c=>{
+  const others=shuffle(CARDS.filter(x=>x.id!==c.id&&x.t===c.t)).slice(0,3).map(x=>x.w);
+  return {id:"v-"+c.id,s:`「${c.zh}」的英文是？`,a:c.w,o:others,zh:c.ex.replace(/<[^>]+>/g,""),vocab:1,tip:c.tip};});}
+function quizMenu(){
+  qBox.innerHTML=`<h2>選一種挑戰</h2><div class="modes">
+   <button class="mode" data-m="mix"><b>🌟 綜合挑戰</b><span>課本句子填空，隨機 10 題</span></button>
+   <button class="mode" data-m="prep"><b>🎯 介系詞特訓</b><span>into、to、from、on……最常錯的都在這</span></button>
+   <button class="mode" data-m="vocab"><b>🔤 中翻英</b><span>看中文選單字，隨機 10 題</span></button>
+   <button class="mode" data-m="all"><b>🔥 全部句子</b><span>27 題一次衝完</span></button>
+  </div>`;
+  qBox.querySelectorAll(".mode").forEach(b=>b.onclick=()=>startQuiz(b.dataset.m));
+}
+function startQuiz(m,custom){
+  SFX.tap();
+  let items= custom|| (m==="mix"?shuffle(QS).slice(0,10): m==="prep"?shuffle(QS.filter(q=>q.p)): m==="vocab"?vocabQs(10): shuffle(QS));
+  if(!items.length){quizMenu();return;}
+  Q={m,items,i:0,score:0,streak:0};renderQ();
+}
+function renderQ(){
+  const q=Q.items[Q.i];const opts=shuffle([q.a,...q.o]);
+  const text=q.vocab?q.s:q.s.replace("___",'<span class="blank">?</span>');
+  qBox.innerHTML=`<div class="qtop"><span>第 ${Q.i+1} / ${Q.items.length} 題</span><span class="combo" id="combo">${Q.streak>=2?"🔥 連對 "+Q.streak:""}</span></div>
+   <div class="qtext ${q.vocab?"":"en"}">${text}${q.vocab?"":' <button class="exsay" id="qSay" aria-label="念題目">🔊</button>'}</div>
+   <div class="opts">${opts.map(o=>`<button class="opt en">${o}</button>`).join("")}</div>
+   <div class="feedback" id="fb"></div>
+   <div class="qfoot" id="qfoot"></div>`;
+  qBox.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b,q));
+  const qs=document.getElementById("qSay");if(qs)qs.onclick=()=>speak(q.s.replace("___","blank"),.88,qs);
+}
+function answer(btn,q){
+  const all=qBox.querySelectorAll(".opt");all.forEach(b=>b.disabled=true);
+  const ok=btn.textContent===q.a;const fb=document.getElementById("fb");
+  const full=q.vocab?"":q.s.replace("___",q.a);
+  if(ok){btn.classList.add("right");SFX.right();Q.score++;Q.streak++;
+    if(Q.streak>S.bestStreak)S.bestStreak=Q.streak;
+    const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top,18,.8);
+    addXP(10+(Q.streak>=3?5:0),btn);
+    if(Q.m==="mist"&&S.wrong[q.id]){delete S.wrong[q.id];S.fixed++;}
+    fb.className="feedback show good";fb.innerHTML=`${["太棒了！","完美！","答對了！","好厲害！"][Math.random()*4|0]} ${q.zh}${q.tip?"<br>💡 "+q.tip:""}`;
+  }else{btn.classList.add("wrong");SFX.wrong();Q.streak=0;
+    all.forEach(b=>{if(b.textContent===q.a)b.classList.add("right")});
+    S.wrong[q.id]=(S.wrong[q.id]||0)+1;
+    fb.className="feedback show bad";fb.innerHTML=`正確答案是 <b class="en">${q.a}</b>。${q.zh}${q.tip?"<br>💡 "+q.tip:""}`;
+  }
+  save();checkAch();
+  const foot=document.getElementById("qfoot");
+  foot.innerHTML=`${full?'<button class="btn no" id="sayQ">🔊 念整句</button>':'<button class="btn no" id="sayQ">🔊 聽發音</button>'}<button class="btn main" id="nextQ">${Q.i+1<Q.items.length?"下一題":"看結果"}</button>`;
+  document.getElementById("sayQ").onclick=()=>speak(full||q.a);
+  document.getElementById("nextQ").onclick=()=>{Q.i++;Q.i<Q.items.length?renderQ():finish();};
+  document.getElementById("nextQ").focus();
+}
+function finish(){
+  const n=Q.items.length,pct=Q.score/n;S.quizzes++;
+  let bonus=20;if(Q.score===n){S.perfect++;bonus+=50;if(Q.m==="prep")S.prepPerfect++;}
+  const stars=pct===1?3:pct>=.7?2:pct>=.4?1:0;
+  qBox.innerHTML=`<div class="result"><div class="stars-row">${"⭐".repeat(stars)}${"☆".repeat(3-stars)}</div>
+   <div class="big en">${Q.score} / ${n}</div>
+   <p>${pct===1?"全對！普羅米修斯都要為你鼓掌 🔥":pct>=.7?"很不錯！再一輪就能滿分":pct>=.4?"有進步空間，錯題本幫你記下來了":"先去翻卡複習一下，再回來挑戰！"}</p>
+   <div class="qfoot" style="justify-content:center"><button class="btn no" id="menuQ">換一種</button><button class="btn main" id="againQ">再來一次</button></div></div>`;
+  save();addXP(bonus,qBox.querySelector(".big"));
+  if(pct===1){SFX.level();rain();}else if(pct>=.7){SFX.yes();burst(innerWidth/2,innerHeight/3,40);}
+  const m=Q.m;document.getElementById("menuQ").onclick=quizMenu;
+  document.getElementById("againQ").onclick=()=>m==="mist"?mistQuiz():startQuiz(m);
+  renderMist();
+}
+
+/* ---------- achievements & mistakes ---------- */
+function renderAch(){
+  document.getElementById("statGrid").innerHTML=[
+    [S.known.length+"/"+CARDS.length,"已記住"],[S.quizzes,"測驗次數"],[S.bestStreak,"最高連對"],[Object.keys(S.ach).length+"/"+ACHS.length,"成就"]
+  ].map(([b,s])=>`<div class="stat"><b class="en">${b}</b><small>${s}</small></div>`).join("");
+  document.getElementById("achList").innerHTML=ACHS.map(a=>`<div class="ach ${S.ach[a.id]?"got":""}"><span class="ic">${a.ic}</span><b>${a.n}</b><small>${a.d}</small></div>`).join("");
+}
+function allQ(){return [...QS,...CARDS.map(c=>({id:"v-"+c.id,s:`「${c.zh}」的英文是？`,a:c.w,zh:c.ex.replace(/<[^>]+>/g,""),vocab:1,tip:c.tip,c}))];}
+function renderMist(){
+  const pool=allQ().filter(q=>S.wrong[q.id]).sort((a,b)=>S.wrong[b.id]-S.wrong[a.id]);
+  const el=document.getElementById("mistList");
+  document.getElementById("mistQuizBtn").hidden=!pool.length;
+  el.innerHTML=pool.length?pool.map(q=>`<div class="mistake"><span class="times">錯 ${S.wrong[q.id]} 次</span><button class="exsay" data-say="${(q.vocab?q.zh:q.s.replace("___",q.a)).replace(/"/g,"&quot;")}" aria-label="念例句" style="float:right;margin-right:8px">🔊</button>
+    <div class="${q.vocab?"":"en"}">${q.vocab?q.s:q.s.replace("___",`<b style="color:var(--ribbon)">${q.a}</b>`)}</div>
+    ${q.vocab?`<div class="en" style="color:var(--ribbon);font-weight:700">${q.a}</div>`:""}
+    ${q.tip?`<small style="color:var(--ink-soft)">💡 ${q.tip}</small>`:""}</div>`).join("")
+    :`<div class="empty">目前沒有錯題 🎉<br>去測驗挑戰看看，答錯的題目會自動收進來。</div>`;
+}
+document.getElementById("mistList").addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b)speak(b.dataset.say,.88,b);});
+function mistQuiz(){
+  const pool=allQ().filter(q=>S.wrong[q.id]).map(q=>{
+    if(q.o)return q;
+    const others=shuffle(CARDS.filter(x=>x.w!==q.a&&x.t===q.c.t)).slice(0,3).map(x=>x.w);return {...q,o:others};});
+  if(!pool.length){renderMist();return;}
+  switchTab("quiz");startQuiz("mist",shuffle(pool));
+}
+document.getElementById("mistQuizBtn").onclick=mistQuiz;
+document.getElementById("resetBtn").onclick=()=>{if(confirm("確定要清除所有進度、成就和錯題嗎？")){const m=S.muted;S=fresh();S.muted=m;save();renderHUD();renderAch();renderMist();buildDeck();}};
+
+/* ---------- tabs ---------- */
+function switchTab(t){
+  document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="p-"+t));
+  if(t==="ach")renderAch();if(t==="mist")renderMist();if(t==="quiz"&&(!Q||!qBox.innerHTML))quizMenu();
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{SFX.tap();switchTab(b.dataset.tab);});
+document.getElementById("muteBtn").onclick=()=>{S.muted=!S.muted;save();renderHUD();SFX.tap();};
+
+/* night stars */
+const st=document.getElementById("stars");
+for(let i=0;i<40;i++){const s=document.createElement("i");s.style.left=Math.random()*100+"%";s.style.top=Math.random()*60+"%";s.style.animationDelay=Math.random()*3+"s";st.appendChild(s);}
+
+renderHUD();buildDeck();quizMenu();renderAch();renderMist();
+</script>
+</body>
+</html>
