@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Unit 3 Prometheus｜草原單字冒險</title>
+<title>英文單字冒險｜Unit 3・LT302・Test 04</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
@@ -194,6 +194,22 @@ nav button:active{transform:translateY(3px);box-shadow:none}
 h2{margin:0 0 12px;font-size:1.3rem;color:var(--ribbon)}
 .reset{margin-top:18px;background:none;border:0;color:var(--ink-soft);text-decoration:underline;font-size:.85rem}
 
+.unitchips{margin:12px 0 0}
+.unitchips button{border-color:#fff;background:rgba(255,255,255,.2);font-size:.95rem;padding:7px 14px}
+.unitchips button.on{background:var(--ribbon);color:#fff;border-color:var(--ribbon);box-shadow:0 3px 0 var(--ribbon-dark)}
+.exzh{margin-top:6px;font-size:.88rem;color:var(--ink-soft);font-weight:700}
+.back{overflow-y:auto}
+.tw{color:#1f63c4;background:#e3f0ff;border-radius:6px;padding:0 4px;font-weight:700}
+.nc{text-decoration:underline wavy var(--pink);text-decoration-thickness:2px;text-underline-offset:5px}
+.ctx{background:#fff;border-radius:16px;padding:10px 14px;margin-bottom:14px;border:2px solid var(--cream-edge)}
+.ctx summary{cursor:pointer;font-weight:800;color:var(--ribbon)}
+.ptext{max-height:260px;overflow:auto;line-height:1.75;margin-top:8px;font-size:.98rem;color:var(--ink)}
+.ptext p{margin:.5em 0}
+.legend{font-size:.82rem;margin-top:6px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.opts.long{grid-template-columns:1fr}
+.opts.long .opt{font-size:1rem;text-align:left}
+.utag{display:inline-block;font-size:.72rem;background:var(--pink-soft);color:var(--ribbon-dark);border-radius:99px;padding:1px 8px;margin-bottom:4px;font-weight:800}
+.card{height:380px}
 /* toast + fx */
 #fx{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
 .toast{
@@ -224,9 +240,10 @@ h2{margin:0 0 12px;font-size:1.3rem;color:var(--ribbon)}
 
 <div class="wrap">
   <header>
-    <h1>Unit 3 普羅米修斯的火種</h1>
-    <p class="en">Prometheus: The Champion of Humankind</p>
+    <h1 id="uTitle">Unit 3 普羅米修斯的火種</h1>
+    <p class="en" id="uSub">Prometheus: The Champion of Humankind</p>
   </header>
+  <div class="chips unitchips" id="unitChips"></div>
 
   <div class="hud">
     <div class="lv"><span id="lvNum">Lv.1</span><small id="lvTitle">草原見習生</small></div>
@@ -381,18 +398,216 @@ const QS = [
  {id:"s27",s:"The hikers made a large fire and, as a ___, were safe from wild beasts.",a:"result",o:["reason","return","rest"],zh:"登山客生了大火，因此免於野獸侵襲。"}
 ];
 
+const P_TEN=`<p>Months ago, posts about <span class="nc">how one looks now and looked ten years ago</span> popped up on social networking websites like Instagram, Twitter, and Facebook. The rules to participate couldn't have been easier: users simply had to post two profile photos side by side, a decade-old one on the left and a recent one on the right. The main challenge of this exercise was <span class="nc">that one needed to face how time had exercised its influence on oneself</span>. Users might have received feedback like “even more gorgeous” or “age-defying” from followers, at which some felt a sense of pride, <b class="tw">while</b> some knew these compliments were simply white lies. <b class="tw">Even if</b> they did not really look older than before, they felt it in their hearts.</p>
+<p>Some psychologists were concerned about this comparison challenge, claiming it might leave a person feeling helpless and depressed. The seemingly positive comments could appear to be nothing but cold comfort. Some psychologists held a different view, <b class="tw">though</b>. <b class="tw">Instead of</b> refuting the effects of the ten-year challenge, they viewed it as an opportunity to show one's maturity and self-growth. With a healthy mindset, one could strengthen one's sense of well-being accompanied by the wisdom that comes with aging.</p>
+<p><b class="tw">Indeed</b>, if people taking on the challenge learned to celebrate aging <b class="tw">rather than</b> denying it, age could be seen as being just as valuable, significant, and meaningful as youth, which is exactly <span class="nc">what one movement advocates</span>: “Be Bold, Claim Old.” Perhaps the real challenge lies <b class="tw">not</b> in physical change <b class="tw">but</b> in mental growth.</p>`;
+const P_MARSH=`<p>I'm here reporting live at the first-ever Marshmallow Challenge event in Boston. This event is organized by Canadian author Tom Wujec, who is attempting to raise the popularity of the challenge. Wujec's hope is <span class="nc">(1) companies around the world will use the Marshmallow Challenge as a team-building exercise</span>.</p>
+<p>The rules of the challenge are simpler than (2) of many other games. Each team gets a few sticks of spaghetti, one roll of tape, a meter of string, and a marshmallow. They must build a free-standing structure (3) the spaghetti, tape, and string in just eighteen minutes. <b class="tw">Also</b>, the challenge is (4) complete (4) the team succeeds in placing the marshmallow on top of their structure.</p>
+<p>The Marshmallow Challenge (5) a number of times in the past few years. <b class="tw">However</b>, (6) previous challenges, in which teams were formed according to age or sex, Wujec has divided up his teams based on profession this time. Competing today are five teams: lawyers, CEOs, architects and engineers, business (7), and kindergarten students.</p>
+<p>The results are surprising. As expected, the architects and engineers won. <b class="tw">However</b>, incredibly, the kindergartners finished second, proving <span class="nc">that age and experience are not the most important (8) when it comes to teamwork</span>. It seems <span class="nc">that the secret of the children's success is their willingness to engage in (9)</span>. <b class="tw">Instead of</b> spending a lot of time talking and planning in the beginning, they (10) work straight away.</p>`;
+const P_NOR=`<p>Norway is a high-latitude country with an abundance of natural (21). It is famous for Viking (22) and for being an expensive place to visit if you are on a budget. <b class="tw">However</b>, if you broaden your horizons, you will realize <span class="nc">that there is a lot more to this country</span>. A popular (23) tour lets travelers take in magnificent sights, such as mountains capped with snow, flowing waterfalls, and trees growing on the sides of mountains. Visitors will be amazed by (24), awe-inspiring cliffs cut out by glaciers. Boats also pass by several small, rural villages and farms, which show <span class="nc">what (25) is like in this isolated world</span>. The tour will certainly make you see <span class="nc">why visiting Norway is well worth the expense</span>.</p>`;
+const P_ALA=`<p>Those who have made a trip to the US state of Alaska say <span class="nc">it is an unforgettable experience</span>. One of the most isolated areas of North America, Alaska is home to very few people, <b class="tw">but</b> many species of animals, including bears and eagles. The landscape is magnificent, with open plains, mighty cliffs and mountains, and around 100,000 glaciers. When visiting Alaska, you can also broaden your knowledge of Alaska's native civilizations by visiting one of the 229 native tribes that still exist there. Sightseeing in Alaska can be a little challenging due to its immense size, the vast areas of wild land that can't be reached by road, and the expense of getting there. <b class="tw">However</b>, if you can stretch your budget to visit this heavenly place, it will definitely be worth it.</p>`;
+
+const LT_CARDS=[
+ {id:"l-promise",t:"word",w:"promise",p:"v.",zh:"答應；承諾",ex:"Tom <mark>promised</mark> his daughter that he would take her to the zoo yesterday.",exZh:"湯姆答應女兒昨天帶她去動物園。"},
+ {id:"l-architect",t:"word",w:"architect",p:"n.",zh:"建築師",ex:"The Louvre Pyramid is designed by the famous <mark>architect</mark> Ieoh Ming Pei.",exZh:"羅浮宮金字塔由著名建築師貝聿銘設計。"},
+ {id:"l-structure",t:"word",w:"structure",p:"n.",zh:"結構",ex:"A good paragraph is usually developed with a nice <mark>structure</mark>, which consists of a topic sentence, three supporting sentences, and a concluding sentence.",exZh:"好的段落通常有漂亮的結構，由主題句、三個支持句和結尾句組成。",tip:"A consist of B：A 由 B 組成"},
+ {id:"l-rank",t:"word",w:"rank",p:"v.",zh:"排名",ex:"According to a report, Finland is <mark>ranked</mark> the happiest country in the world.",exZh:"根據報告，芬蘭被評為世界上最幸福的國家。"},
+ {id:"l-feedback",t:"word",w:"feedback",p:"n.",zh:"回饋（不可數）",ex:"Your advice is always insightful; please give me some <mark>feedback</mark> on this new project.",exZh:"你的建議總是很有見地，請就這個新專案給我一些回饋。",tip:"give feedback on…；不可數，不加 s"},
+ {id:"l-collaborate",t:"word",w:"collaborate",p:"v.",zh:"合作",ex:"We are looking for a new colleague who can <mark>collaborate</mark> with people well.",exZh:"我們在找一位能和別人好好合作的新同事。",tip:"collaborate with 人；collaborate in Ving"},
+ {id:"l-adjustment",t:"word",w:"adjustment",p:"n.",zh:"調整",ex:"Janice made an <mark>adjustment</mark> to the air conditioner so that the room could become cooler.",exZh:"Janice 調整了冷氣，讓房間變涼。",tip:"make an adjustment to N"},
+ {id:"l-route",t:"word",w:"route",p:"n.",zh:"路線",ex:"Since we are not sure about which road to take, let's look at the map and find out the best <mark>route</mark>.",exZh:"既然不確定走哪條路，我們看地圖找出最佳路線吧。"},
+ {id:"l-exploration",t:"word",w:"exploration",p:"n.",zh:"探索",ex:"Since the late 20th century, the <mark>exploration</mark> of Mars has helped scientists learn more about its geology.",exZh:"自 20 世紀末，對火星的探索幫助科學家更了解它的地質。"},
+ {id:"l-unique",t:"word",w:"unique",p:"adj.",zh:"獨一無二的",ex:"Everyone is <mark>unique</mark>, with his own character, talent, and preference.",exZh:"每個人都獨一無二，有自己的性格、天分和喜好。"},
+ {id:"l-stability",t:"word",w:"stability",p:"n.",zh:"穩定",ex:"The spread of COVID-19 leads to new risks to financial <mark>stability</mark>.",exZh:"COVID-19 的擴散為金融穩定帶來新風險。"},
+ {id:"l-material",t:"word",w:"material",p:"n.",zh:"材料",ex:"The artist is good at turning <mark>materials</mark> like wood or stone into beautiful handicrafts.",exZh:"這位藝術家擅長把木頭或石頭等材料變成漂亮的手工藝品。",tip:"當「材料」可數，記得加 s；turn A into B"},
+ {id:"l-construct",t:"word",w:"construct",p:"v.",zh:"建造",ex:"The city government plans to <mark>construct</mark> another highway bridge in the hope of improving traffic flow.",exZh:"市政府計畫興建另一座高速公路橋，希望改善車流。"},
+ {id:"l-reliable",t:"word",w:"reliable",p:"adj.",zh:"可靠的",ex:"Bruce is the most <mark>reliable</mark> person in this company; you can trust him.",exZh:"Bruce 是公司裡最可靠的人，你可以信任他。"},
+ {id:"l-slightly",t:"word",w:"slightly",p:"adv.",zh:"稍微",ex:"I feel <mark>slightly</mark> dizzy. It's not a serious problem, <b class=\"tw\">but</b> I do need to sit down.",exZh:"我覺得有點頭暈，不嚴重，但我真的需要坐下。"},
+ {id:"l-outperform",t:"word",w:"outperform",p:"v.",zh:"勝過",ex:"Jack joined a national bread competition to see if he could <mark>outperform</mark> other bakers.",exZh:"Jack 參加全國麵包比賽，看能不能勝過其他烘焙師。"},
+ {id:"l-capability",t:"word",w:"capability",p:"n.",zh:"能力",ex:"They consider they have superb <mark>capabilities</mark> and want to be in charge of a big company.",exZh:"他們覺得自己能力絕佳，想掌管大公司。"},
+ {id:"l-graduate",t:"word",w:"graduate",p:"n.",zh:"畢業生",ex:"Local <mark>graduates</mark> need to work harder to stand out from those from around the world.",exZh:"本地畢業生必須更努力，才能從世界各地的畢業生中脫穎而出。"},
+ {id:"l-element",t:"word",w:"element",p:"n.",zh:"要素；因素",ex:"Age and experience are not the most important <mark>elements</mark> when it comes to teamwork.",exZh:"說到團隊合作，年齡和經驗不是最重要的因素。"},
+ {id:"l-innovative",t:"word",w:"innovative",p:"adj.",zh:"創新的",ex:"I have been encouraged to provide any <mark>innovative</mark> ideas and constructive criticism.",exZh:"我一直被鼓勵提出任何創新的想法和建設性的批評。"},
+ {id:"l-prioritize",t:"word",w:"prioritize",p:"v.",zh:"排定優先順序",ex:"Mike's friend suggested he write a to-do list and <mark>prioritize</mark> his tasks.",exZh:"Mike 的朋友建議他寫待辦清單並排定任務的優先順序。",tip:"suggest (that) S + (should) VR"},
+ {id:"l-procrastination",t:"word",w:"procrastination",p:"n.",zh:"拖延",ex:"He could get rid of the habit of <mark>procrastination</mark>.",exZh:"他就能戒掉拖延的習慣。"},
+ {id:"l-phubber",t:"word",w:"phubber",p:"n.",zh:"低頭族",ex:"These <mark>phubbers</mark> are addicted to their smartphones.",exZh:"這些低頭族沉迷於智慧型手機。"},
+ {id:"l-refute",t:"word",w:"refute",p:"v.",zh:"反駁；否定",ex:"<b class=\"tw\">Instead of</b> <mark>refuting</mark> the effects of the challenge, they viewed it as an opportunity.",exZh:"他們不否定這項挑戰的影響，反而把它視為一個機會。"},
+ {id:"l-unlike",t:"word",w:"unlike",p:"prep.",zh:"不像；不同於",ex:"<mark>Unlike</mark> previous challenges, Wujec has divided up his teams based on profession this time.",exZh:"不同於以往的挑戰，這次 Wujec 依職業分組。",tip:"besides 除了；regarding 關於；during 在…期間"},
+ {id:"l-whereas",t:"word",w:"whereas",p:"conj.",zh:"然而（轉折）",ex:"They want to be in charge of a big company, <b class=\"tw\">whereas</b> the truth is that they are not professional enough.",exZh:"他們想掌管大公司，然而事實是他們不夠專業。",tip:"轉折詞，= while"},
+ {id:"l-consistof",t:"phrase",w:"consist of",p:"片語",zh:"由……組成",ex:"Our class <mark>consists of</mark> 40 students.",exZh:"我們班由 40 位學生組成。",tip:"沒有被動，不說 is consisted of"},
+ {id:"l-turninto",t:"phrase",w:"turn A into B",p:"片語",zh:"把 A 變成 B",ex:"The artist is good at <mark>turning</mark> wood <mark>into</mark> beautiful handicrafts.",exZh:"藝術家擅長把木頭變成漂亮的手工藝品。",tip:"= transform / change A into B"},
+ {id:"l-knownas",t:"phrase",w:"be known as",p:"片語",zh:"被稱為",ex:"Jack, <mark>known as</mark> “Baker King,” was capable of making the most delicious bread.",exZh:"被稱為「烘焙王」的 Jack 能做出最美味的麵包。",tip:"known as 被稱為；known for 以…聞名"},
+ {id:"l-capableof",t:"phrase",w:"be capable of Ving",p:"片語",zh:"有能力做……",ex:"Jack didn't take charge of the department until he was <mark>capable of</mark> leading the team.",exZh:"Jack 直到有能力帶領團隊，才接管這個部門。"},
+ {id:"l-lineup",t:"phrase",w:"line up",p:"片語",zh:"排隊",ex:"Customers had to spend more than one hour <mark>lining up</mark>.",exZh:"客人必須花一小時以上排隊。",tip:"spend + 時間 + Ving"},
+ {id:"l-despite",t:"phrase",w:"despite Ving",p:"片語",zh:"儘管……",ex:"<mark>Despite</mark> working very hard in the competition, he failed.",exZh:"儘管在比賽中很努力，他還是失敗了。",tip:"despite 是介系詞，不加 of；= in spite of"},
+ {id:"l-secondlast",t:"phrase",w:"second to last",p:"片語",zh:"倒數第二",ex:"He failed, ranking only <mark>second to last</mark>.",exZh:"他失敗了，只排名倒數第二。"},
+ {id:"l-rollup",t:"phrase",w:"roll up one's sleeves",p:"片語",zh:"捲起袖子（開始行動）",ex:"Jack wasn't distressed; <b class=\"tw\">instead</b>, he quickly <mark>rolled up his sleeves</mark>.",exZh:"Jack 沒有沮喪，反而很快就捲起袖子開始行動。"},
+ {id:"l-dedicate",t:"phrase",w:"dedicate oneself to Ving",p:"片語",zh:"致力於……",ex:"He <mark>dedicated himself to</mark> preparing for the following year's competition.",exZh:"他致力於準備隔年的比賽。",tip:"to 是介系詞，後接 Ving"},
+ {id:"l-relyon",t:"phrase",w:"rely on",p:"片語",zh:"依靠",ex:"He <mark>relied on</mark> trial and error to find out which ingredients worked the best.",exZh:"他靠反覆試驗找出哪些材料效果最好。"},
+ {id:"l-trial",t:"phrase",w:"trial and error",p:"片語",zh:"反覆試驗",ex:"The children's success came from their willingness to engage in <mark>trial and error</mark>.",exZh:"孩子們成功的祕訣是他們願意反覆試驗。"},
+ {id:"l-moveon",t:"phrase",w:"move on to",p:"片語",zh:"換到下一個",ex:"If one recipe was not suitable, he <mark>moved on to</mark> the next.",exZh:"一份食譜不適合，他就換下一個。"},
+ {id:"l-route2",t:"phrase",w:"the route to success",p:"片語",zh:"通往成功的路",ex:"He believed it was the only <mark>route to success</mark>.",exZh:"他相信這是唯一通往成功的路。"},
+ {id:"l-promise2",t:"phrase",w:"make a promise to oneself",p:"片語",zh:"對自己承諾",ex:"He <mark>made a promise to himself</mark> that he would keep himself focused on more experiments.",exZh:"他對自己承諾會持續專注在更多實驗上。"},
+ {id:"l-figureout",t:"phrase",w:"figure out",p:"片語",zh:"想出；弄清楚",ex:"He kept experimenting before <mark>figuring out</mark> the best recipe.",exZh:"在想出最好的食譜之前，他一直做實驗。"},
+ {id:"l-asexpected",t:"phrase",w:"as expected",p:"片語",zh:"正如預期",ex:"One year later, Jack, <mark>as expected</mark>, won the bread competition and came in first.",exZh:"一年後，正如預期，Jack 贏得比賽得到第一名。"},
+ {id:"l-comein",t:"phrase",w:"come in first",p:"片語",zh:"得到第一名",ex:"Jack won the bread competition and <mark>came in first</mark>.",exZh:"Jack 贏得麵包比賽，拿下第一名。"},
+ {id:"l-takecharge",t:"phrase",w:"take charge of",p:"片語",zh:"接管；負責",ex:"Jack didn't <mark>take charge of</mark> the department <b class=\"tw\">until</b> he was capable of leading the team.",exZh:"Jack 直到有能力帶團隊，才接管這個部門。",tip:"not…until… 直到…才…"},
+ {id:"l-incharge",t:"phrase",w:"be in charge of",p:"片語",zh:"掌管；負責",ex:"They want to be <mark>in charge of</mark> a big company.",exZh:"他們想掌管一家大公司。"},
+ {id:"l-settle",t:"phrase",w:"settle for",p:"片語",zh:"勉強接受",ex:"Another reason is that they don't <mark>settle for</mark> lower pay.",exZh:"另一個原因是他們不肯屈就低薪。"},
+ {id:"l-standout",t:"phrase",w:"stand out from",p:"片語",zh:"從……中脫穎而出",ex:"Local graduates need to work harder to <mark>stand out from</mark> those from around the world.",exZh:"本地畢業生必須更努力才能脫穎而出。"},
+ {id:"l-getdown",t:"phrase",w:"get down to",p:"片語",zh:"開始認真做",ex:"It's time we rolled up our sleeves and <mark>got down to</mark> the experiment.",exZh:"該是我們捲起袖子、好好開始做實驗的時候了。",tip:"get down to + N / Ving；It's time + S + Ved"},
+ {id:"l-getrid",t:"phrase",w:"get rid of",p:"片語",zh:"擺脫；戒除",ex:"He could <mark>get rid of</mark> the bad habit of procrastination.",exZh:"他就能戒掉拖延的壞習慣。"},
+ {id:"l-addicted",t:"phrase",w:"be addicted to",p:"片語",zh:"沉迷於",ex:"These phubbers <mark>are addicted to</mark> their smartphones.",exZh:"這些低頭族沉迷於手機。",tip:"to 是介系詞，後接 N / Ving"},
+ {id:"l-cold",t:"phrase",w:"cold comfort",p:"片語",zh:"於事無補的安慰",ex:"The seemingly positive comments could appear to be nothing but <mark>cold comfort</mark>.",exZh:"那些看似正面的評論可能只是於事無補的安慰。"},
+ {id:"l-white",t:"phrase",w:"white lie",p:"片語",zh:"善意的謊言",ex:"Some knew these compliments were simply <mark>white lies</mark>.",exZh:"有些人知道這些讚美只是善意的謊言。"},
+ {id:"l-notuntil",t:"phrase",w:"not … until …",p:"片語",zh:"直到……才……",ex:"The challenge is <mark>not</mark> complete <mark>until</mark> the team places the marshmallow on top.",exZh:"直到隊伍把棉花糖放到頂端，挑戰才算完成。"},
+ {id:"l-overyears",t:"phrase",w:"over the years",p:"片語",zh:"這幾年來",ex:"<mark>Over the years</mark>, the high unemployment rate of college graduates has been an issue worth discussing.",exZh:"這幾年來，大學畢業生高失業率一直是值得探討的議題。",tip:"常搭配現在完成式"}
+];
+const LT_QS=[
+ {id:"l1",cat:"vocab",s:"Tom ___ his daughter that he would take her to the zoo yesterday.",a:"promised",o:["constructed","ranked","collaborated"],zh:"湯姆答應女兒昨天帶她去動物園。"},
+ {id:"l2",cat:"vocab",s:"The Louvre Pyramid is designed by the famous ___ Ieoh Ming Pei.",a:"architect",o:["graduate","element","structure"],zh:"羅浮宮金字塔由著名建築師貝聿銘設計。"},
+ {id:"l3",cat:"vocab",s:"A good paragraph is usually developed with a nice ___, which consists of a topic sentence, three supporting sentences, and a concluding sentence.",a:"structure",o:["stability","route","material"],zh:"好的段落通常有漂亮的結構。",tip:"A consist of B"},
+ {id:"l4",cat:"vocab",s:"According to a report, Finland is ___ the happiest country in the world.",a:"ranked",o:["promised","constructed","refuted"],zh:"芬蘭被評為世界上最幸福的國家。"},
+ {id:"l5",cat:"vocab",s:"Your advice is always insightful; please give me some ___ on this new project.",a:"feedback",o:["adjustment","exploration","procrastination"],zh:"請就這個新專案給我一些回饋。",tip:"feedback 不可數"},
+ {id:"l6",cat:"vocab",s:"We are looking for a new colleague who can ___ with people well.",a:"collaborate",o:["construct","prioritize","outperform"],zh:"我們在找能和別人好好合作的同事。"},
+ {id:"l7",cat:"vocab",s:"Janice made an ___ to the air conditioner so that the room could become cooler.",a:"adjustment",o:["exploration","element","architect"],zh:"Janice 調整了冷氣讓房間更涼。",tip:"make an adjustment to N"},
+ {id:"l8",cat:"vocab",s:"Since we are not sure about which road to take, let's look at the map and find out the best ___.",a:"route",o:["structure","stability","element"],zh:"我們看地圖找出最佳路線吧。"},
+ {id:"l9",cat:"vocab",s:"Since the late 20th century, the ___ of Mars has helped scientists learn more about its geology.",a:"exploration",o:["adjustment","procrastination","stability"],zh:"對火星的探索幫助科學家更了解它的地質。"},
+ {id:"l10",cat:"vocab",s:"Everyone is ___, with his own character, talent, and preference.",a:"unique",o:["reliable","innovative","slightly"],zh:"每個人都是獨一無二的。"},
+ {id:"l11",cat:"vocab",s:"The spread of COVID-19 leads to new risks to financial ___.",a:"stability",o:["structure","feedback","capability"],zh:"COVID-19 為金融穩定帶來新風險。"},
+ {id:"l12",cat:"vocab",s:"The artist is good at turning ___ like wood or stone into beautiful handicrafts.",a:"materials",o:["elements","graduates","routes"],zh:"藝術家擅長把木頭石頭等材料變成手工藝品。",tip:"當材料可數加 s；turn A into B"},
+ {id:"l13",cat:"vocab",s:"The city government plans to ___ another highway bridge in the hope of improving traffic flow.",a:"construct",o:["collaborate","refute","rank"],zh:"市政府計畫興建另一座高速公路橋。"},
+ {id:"l14",cat:"vocab",s:"Bruce is the most ___ person in this company; you can trust him.",a:"reliable",o:["unique","slightly","innovative"],zh:"Bruce 是公司裡最可靠的人。"},
+ {id:"l15",cat:"vocab",s:"I feel ___ dizzy. It's not a serious problem, but I do need to sit down and take a rest.",a:"slightly",o:["reliably","uniquely","innovatively"],zh:"我覺得有點頭暈。"},
+ {id:"lc1",cat:"cloze",ctx:"marsh",s:"Wujec's hope is ___ companies around the world will use the Marshmallow Challenge as a team-building exercise.",a:"that",o:["this","which","where"],zh:"Wujec 希望全球公司都把棉花糖挑戰當團隊練習。",tip:"後面是完整子句 → 用 that 引導名詞子句當主詞補語"},
+ {id:"lc2",cat:"cloze",ctx:"marsh",s:"The rules of the challenge are simpler than ___ of many other games.",a:"those",o:["this","these","that"],zh:"這項挑戰的規則比許多其他遊戲的規則簡單。",tip:"代替前面的複數名詞 rules → those"},
+ {id:"lc3",cat:"cloze",ctx:"marsh",s:"They must build a free-standing structure ___ the spaghetti, tape, and string in just eighteen minutes.",a:"with",o:["by","for","about"],zh:"他們必須在 18 分鐘內用麵條、膠帶和繩子搭出結構。",tip:"with + 工具/材料；by + Ving 藉由做…"},
+ {id:"lc4",cat:"cloze",ctx:"marsh",s:"The challenge is ___ complete ___ the team succeeds in placing the marshmallow on top of their structure.",a:"not; until",o:["as; as","not; but","so; that"],zh:"直到隊伍把棉花糖放到結構頂端才算完成。",tip:"not … until … 直到…才…"},
+ {id:"lc5",cat:"cloze",ctx:"marsh",s:"The Marshmallow Challenge ___ a number of times in the past few years.",a:"has been held",o:["has held","had held","has been holding"],zh:"過去幾年棉花糖挑戰已經舉辦數次。",tip:"in the past few years → 現在完成；挑戰「被」舉辦 → 被動 has been held"},
+ {id:"lc6",cat:"cloze",ctx:"marsh",s:"However, ___ previous challenges, in which teams were formed according to age or sex, Wujec has divided up his teams based on profession this time.",a:"unlike",o:["besides","regarding","during"],zh:"不同於以往依年齡或性別分組，這次依職業分組。",tip:"四個都是介系詞：besides 除了、regarding 關於、unlike 不像、during 在…期間"},
+ {id:"lc7",cat:"cloze",ctx:"marsh",s:"Competing today are five teams: lawyers, CEOs, architects and engineers, business ___, and kindergarten students.",a:"graduates",o:["rankings","corporations","capabilities"],zh:"參賽隊伍包括商學院畢業生。"},
+ {id:"lc8",cat:"cloze",ctx:"marsh",s:"…proving that age and experience are not the most important ___ when it comes to teamwork.",a:"elements",o:["benefits","distributions","innovations"],zh:"證明年齡和經驗不是團隊合作中最重要的因素。"},
+ {id:"lc9",cat:"cloze",ctx:"marsh",s:"It seems that the secret of the children's success is their willingness to engage in ___.",a:"trial and error",o:["good and evil","right and wrong","success and failure"],zh:"孩子們成功的祕訣是願意反覆試驗。"},
+ {id:"lc10",cat:"cloze",ctx:"marsh",s:"Instead of spending a lot of time talking and planning in the beginning, they ___ work straight away.",a:"get down to",o:["are in charge","roll up their sleeves","figure out"],zh:"他們沒有花太多時間討論，而是馬上開始動手。",tip:"這裡 work 是名詞；get down to + N"},
+ {id:"lt1",cat:"phrase",s:"Jack, ___ “Baker King,” was capable of making the most delicious bread.",a:"known as",o:["known for","known to","known by"],zh:"被稱為「烘焙王」的 Jack 能做出最美味的麵包。",tip:"known as 被稱為；known for 以…聞名"},
+ {id:"lt2",cat:"phrase",s:"Jack ___ making the most delicious bread.",a:"was capable of",o:["was able of","was capable to","was capable in"],zh:"Jack 有能力做出最美味的麵包。"},
+ {id:"lt3",cat:"phrase",s:"Most of the time customers had to spend more than one hour ___.",a:"lining up",o:["to line up","line up","lined up"],zh:"客人大多得花一小時以上排隊。",tip:"spend + 時間 + Ving"},
+ {id:"lt4",cat:"phrase",s:"___ such popularity, Jack decided to participate in a national bread competition.",a:"With",o:["For","By","Under"],zh:"有這樣的人氣，Jack 決定參加全國麵包比賽。"},
+ {id:"lt5",cat:"phrase",s:"___ very hard in the competition, he failed.",a:"Despite working",o:["Despite of working","Despite worked","Even working"],zh:"儘管在比賽中很努力，他還是失敗了。",tip:"despite + N/Ving，不加 of"},
+ {id:"lt6",cat:"phrase",s:"He failed, ranking only ___.",a:"second to last",o:["last to second","two to last","second of last"],zh:"他只排名倒數第二。"},
+ {id:"lt7",cat:"phrase",s:"Jack wasn't distressed; ___, he quickly rolled up his sleeves.",a:"instead",o:["instead of","besides","rather"],zh:"Jack 沒有沮喪，取而代之的是很快捲起袖子。",tip:"分號後的轉折副詞 instead；instead of 後面要接 N"},
+ {id:"lt8",cat:"phrase",s:"He was advised to ___ his recipe more creative.",a:"make",o:["allow","let","ask"],zh:"他被建議讓食譜更有創意。",tip:"中文都是「讓」：make + O + adj.；let + O + VR；allow + O + to V"},
+ {id:"lt9",cat:"phrase",s:"He ___ trial and error to find out which ingredients worked the best.",a:"relied on",o:["relied in","relied with","relied to"],zh:"他靠反覆試驗找出最好的材料。"},
+ {id:"lt10",cat:"phrase",s:"If one recipe was not suitable, he ___ the next.",a:"moved on to",o:["moved in to","moved out of","moved up"],zh:"一份食譜不適合，他就換下一個。"},
+ {id:"lt11",cat:"phrase",s:"He believed it was the only ___.",a:"route to success",o:["route of success","route for success","route in success"],zh:"他相信這是唯一通往成功的路。"},
+ {id:"lt12",cat:"phrase",s:"He would keep himself ___ more experiments before figuring out the best recipe.",a:"focused on",o:["focusing in","focus on","focused at"],zh:"在想出最好的食譜前，他會一直專注在實驗上。",tip:"keep + O + adj.（focused）"},
+ {id:"lt13",cat:"phrase",s:"One year later, Jack, ___, won the bread competition and came in first.",a:"as expected",o:["as expecting","was expected","to expect"],zh:"一年後，正如預期，Jack 拿下第一。"},
+ {id:"lt14",cat:"phrase",s:"___, the high unemployment rate of college graduates has been an issue worth discussing.",a:"Over the years",o:["In the years ago","For years ago","Since years"],zh:"這幾年來，畢業生高失業率一直是值得探討的議題。",tip:"over the years + 現在完成式"},
+ {id:"lt15",cat:"phrase",s:"They consider they have superb capabilities and want to be ___ a big company.",a:"in charge of",o:["in charge for","on charge of","in charge with"],zh:"他們覺得自己能力很好，想掌管大公司。"},
+ {id:"lt16",cat:"phrase",s:"They want to be in charge of a big company, ___ the truth is that they are not professional enough.",a:"whereas",o:["because","so that","unless"],zh:"他們想掌管大公司，然而事實是他們不夠專業。",tip:"轉折連接詞 whereas / while"},
+ {id:"lt17",cat:"phrase",s:"One reason is…; another reason is…. ___ reason is that more international applicants are competing for suitable jobs.",a:"Still another",o:["Other","The other","Others"],zh:"還有另一個原因是國際應徵者越來越多。",tip:"One → Another → Still another（不確定總數時）"},
+ {id:"lt18",cat:"phrase",s:"Local graduates need to work harder to stand out from ___ from around the world.",a:"those",o:["that","what","these"],zh:"本地畢業生必須更努力，才能從世界各地的畢業生中脫穎而出。",tip:"代替複數名詞、後面有介系詞片語修飾 → those（單數用 that）"},
+ {id:"lt19",cat:"phrase",s:"Jack didn't take charge of the department ___ he was capable of leading the team.",a:"until",o:["when","since","because"],zh:"Jack 直到有能力帶團隊，才接管部門。"},
+ {id:"lt20",cat:"phrase",s:"Since I entered this company, I ___ to provide any innovative ideas and constructive criticism.",a:"have been encouraged",o:["was encouraged","have encouraged","am encouraging"],zh:"自從進公司，我一直被鼓勵提出創新想法。",tip:"since + 過去 → 主句現在完成；被鼓勵 → 被動"},
+ {id:"lt21",cat:"phrase",s:"It's time we ___ up our sleeves and got down to the experiment.",a:"rolled",o:["roll","rolling","will roll"],zh:"該是我們捲起袖子開始做實驗的時候了。",tip:"It is time (that) + S + Ved"},
+ {id:"lt22",cat:"phrase",s:"Mike's friend suggested he ___ a to-do list and prioritize his tasks.",a:"write",o:["writes","writing","to write"],zh:"Mike 的朋友建議他寫待辦清單。",tip:"suggest (that) S + (should) VR"},
+ {id:"lt23",cat:"phrase",s:"He wrote a to-do list so that he could ___ the habit of procrastination.",a:"get rid of",o:["get away","get over to","get off"],zh:"這樣他就能戒掉拖延的習慣。"},
+ {id:"lt24",cat:"phrase",s:"These phubbers are ___ their smartphones.",a:"addicted to",o:["addicted on","addicting to","addiction to"],zh:"這些低頭族沉迷於手機。"},
+ {id:"lt25",cat:"phrase",s:"It is very difficult for the two governments to collaborate in saving those that have ___ the scams.",a:"fallen victim to",o:["fallen victim of","fell victim to","fallen victims for"],zh:"兩國政府很難合作救出那些在騙局中受害的人。",tip:"fall victim to（Unit 3 也學過！）"},
+ {id:"lt26",cat:"phrase",s:"To stay healthy, you should keep ___ hours.",a:"regular",o:["normal","daily","usual"],zh:"保持規律的作息：keep regular hours"},
+ {id:"lt27",cat:"phrase",s:"My grandparents go to bed early and get up early. They keep ___ hours.",a:"early",o:["late","fast","soon"],zh:"早睡早起：keep early hours"},
+ {id:"lr1",cat:"read",ctx:"ten",s:"What does the author think about the Ten-Year Challenge?",a:"It is a chance to face one's real self and embrace it.",o:["It is an activity that can make one feel pleased and flattered.","It is an opportunity to comfort a depressed friend.","It is a reason to post a new profile photo on one's social media."],zh:"作者在最後一段用 Indeed 支持第二派心理學家：接納變老、看見自我成長。",tip:"線索：Indeed, if people … learned to celebrate aging rather than denying it…"},
+ {id:"lr2",cat:"read",ctx:"ten",s:"Which word in the second paragraph means “stating that something does not exist or is untrue”?",a:"refuting",o:["refute","claiming","viewing"],zh:"Instead of refuting… 和第二派的肯定態度相反，所以 refuting 是「否定」。",tip:"題目用 stating（Ving）→ 答案也寫 Ving；若題目是 state 就寫 refute"},
+ {id:"lr3",cat:"read",ctx:"ten",s:"Be Bold, Claim Old: its purpose is to promote the idea that ___.",a:"age could be seen as being just as valuable, significant, and meaningful as youth",o:["the real challenge lies in physical change","time has exerted its influence on the participants","positive comments are nothing but cold comfort"],zh:"答案就在 Be Bold, Claim Old 出現的那句前面。"}
+];
+
+const T_CARDS=[
+ {id:"t-latitude",t:"word",w:"latitude",p:"n.",zh:"緯度",ex:"You can find out <span class=\"nc\">where a country is on a world map</span> by looking at its <mark>latitude</mark>.",exZh:"看緯度就能找出國家在世界地圖上的位置。",tip:"latitude 緯度 ↔ longitude 經度"},
+ {id:"t-longitude",t:"word",w:"longitude",p:"n.",zh:"經度",ex:"Lines of <mark>longitude</mark> run from the North Pole to the South Pole.",exZh:"經線從北極延伸到南極。"},
+ {id:"t-extremely",t:"word",w:"extremely",p:"adv.",zh:"極度地；非常",ex:"We were all <mark>extremely</mark> tired after our long hike in the mountains.",exZh:"在山裡長途健行後，我們都非常累。",tip:"≈ extraordinarily, exceedingly, highly, incredibly"},
+ {id:"t-heavenly",t:"word",w:"heavenly",p:"adj.",zh:"天堂般的；極好的",ex:"Fiji is often described by visitors as a <mark>heavenly</mark> place.",exZh:"斐濟常被遊客形容為天堂般的地方。",tip:"名詞 + ly = 形容詞：friendly, costly, orderly, leisurely"},
+ {id:"t-folklore",t:"word",w:"folklore",p:"n.",zh:"民間傳說（不可數）",ex:"Many tales from ancient <mark>folklore</mark> have been the subject of popular Disney movies.",exZh:"許多古代民間傳說成了熱門迪士尼電影的題材。"},
+ {id:"t-rural",t:"word",w:"rural",p:"adj.",zh:"鄉村的",ex:"My grandmother lives in a <mark>rural</mark> area where there are many farms.",exZh:"我祖母住在有許多農場的鄉村地區。",tip:"rural 鄉村 ↔ urban 都市"},
+ {id:"t-urban",t:"word",w:"urban",p:"adj.",zh:"都市的",ex:"Kylie moved to an <mark>urban</mark> area when she was offered a new job.",exZh:"Kylie 得到新工作時搬到了都市。"},
+ {id:"t-broaden",t:"word",w:"broaden",p:"v.",zh:"拓展；加寬",ex:"If you have never visited another country, it's time you <mark>broadened</mark> your horizons.",exZh:"如果你沒出過國，是時候拓展視野了。",tip:"It's time + S + Ved；broad → broaden → breadth"},
+ {id:"t-cliff",t:"word",w:"cliff",p:"n.",zh:"懸崖",ex:"From the edge of the <mark>cliff</mark>, James had a good view of the beach below.",exZh:"從懸崖邊，James 可以清楚俯瞰下方的海灘。"},
+ {id:"t-resource",t:"word",w:"resource",p:"n.",zh:"資源",ex:"People decided to live here because the land has many natural <mark>resources</mark>.",exZh:"人們住在這裡，因為這片土地有豐富的自然資源。",tip:"natural / human resources"},
+ {id:"t-resourceful",t:"word",w:"resourceful",p:"adj.",zh:"足智多謀的",ex:"She is a woman who is energetic and <mark>resourceful</mark>.",exZh:"她是一位精力充沛又足智多謀的女性。"},
+ {id:"t-isolated",t:"word",w:"isolated",p:"adj.",zh:"偏遠的；孤立的",ex:"The South Pole is one of the most <mark>isolated</mark> places on Earth.",exZh:"南極是地球上最偏遠的地方之一。"},
+ {id:"t-sightseeing",t:"word",w:"sightseeing",p:"n.",zh:"觀光",ex:"Our trip to London included a lot of <mark>sightseeing</mark> and theater.",exZh:"我們的倫敦之旅有很多觀光和看劇。",tip:"go sightseeing；a sightseeing tour"},
+ {id:"t-ferry",t:"word",w:"ferry",p:"v. / n.",zh:"接送；渡輪",ex:"Lorna's dad always has to <mark>ferry</mark> her around from place to place.",exZh:"Lorna 的爸爸總要載她到處跑。",tip:"ferry sb around；travel 不能直接接人"},
+ {id:"t-inland",t:"word",w:"inland",p:"adv. / adj.",zh:"向內陸；內陸的",ex:"The tourists were told to move <mark>inland</mark> to avoid the storm at the coast.",exZh:"遊客被告知往內陸移動，躲避海岸的暴風雨。"},
+ {id:"t-steep",t:"word",w:"steep",p:"adj.",zh:"陡峭的；急劇的",ex:"Fred was breathing hard as he walked up the <mark>steep</mark> hill.",exZh:"Fred 爬上陡坡時喘得很厲害。",tip:"steep prices 價格高昂；a steep rise 急劇上升"},
+ {id:"t-awe",t:"word",w:"awe",p:"n.",zh:"敬畏；驚嘆",ex:"We stood in <mark>awe</mark> of the mighty mountains.",exZh:"我們對雄偉的山脈心生敬畏。",tip:"in awe of 對…感到敬畏"},
+ {id:"t-aweinspiring",t:"word",w:"awe-inspiring",p:"adj.",zh:"令人驚嘆的",ex:"The ancient monuments in Egypt are some of the most <mark>awe-inspiring</mark> sights in the world.",exZh:"埃及的古代遺跡是世界上最令人驚嘆的景觀之一。"},
+ {id:"t-glacier",t:"word",w:"glacier",p:"n.",zh:"冰河",ex:"One sign of climate change is <span class=\"nc\">that <mark>glaciers</mark> are melting faster than in the past</span>.",exZh:"氣候變遷的徵兆之一是冰河融化得比過去快。"},
+ {id:"t-abundance",t:"word",w:"abundance",p:"n.",zh:"豐富；大量",ex:"After such a warm summer, we will have an <mark>abundance</mark> of garden vegetables.",exZh:"經過這麼溫暖的夏天，菜園會大豐收。",tip:"an abundance of + 複數 N / 不可數 N"},
+ {id:"t-civilization",t:"word",w:"civilization",p:"n.",zh:"文明",ex:"Children often learn about the ancient Roman and Greek <mark>civilizations</mark> at school.",exZh:"孩子們常在學校學到古羅馬和古希臘文明。"},
+ {id:"t-takein",t:"phrase",w:"take in",p:"片語",zh:"吸收；理解；欣賞",ex:"Alan found it difficult to <mark>take in</mark> all the information that was given to him.",exZh:"Alan 覺得很難吸收所有給他的資訊。",tip:"find it + adj. + to V；take in the sights 欣賞風景"},
+ {id:"t-onbudget",t:"phrase",w:"on a budget",p:"片語",zh:"預算有限",ex:"Norway is an expensive place to visit if you are <mark>on a budget</mark>.",exZh:"如果預算有限，挪威是個昂貴的旅遊地。",tip:"travel on a tight budget（大考題！）"},
+ {id:"t-stretch",t:"phrase",w:"stretch one's budget",p:"片語",zh:"擠出預算",ex:"If you can <mark>stretch your budget</mark> to visit this heavenly place, it will definitely be worth it.",exZh:"如果你能擠出預算去這個天堂般的地方，一定很值得。"},
+ {id:"t-horizons",t:"phrase",w:"broaden one's horizons",p:"片語",zh:"拓展視野",ex:"If you <mark>broaden your horizons</mark>, you will realize <span class=\"nc\">that there is a lot more to this country</span>.",exZh:"如果你拓展視野，會發現這個國家還有更多值得探索。",tip:"大考題！！"},
+ {id:"t-abundanceof",t:"phrase",w:"an abundance of",p:"片語",zh:"大量的；豐富的",ex:"Norway is a high-latitude country with <mark>an abundance of</mark> natural resources.",exZh:"挪威是擁有豐富自然資源的高緯度國家。"},
+ {id:"t-hometo",t:"phrase",w:"be home to",p:"片語",zh:"是……的家園／棲息地",ex:"Alaska <mark>is home to</mark> very few people, but many species of animals.",exZh:"阿拉斯加人口很少，卻是許多動物的棲息地。"},
+ {id:"t-worth",t:"phrase",w:"be worth the expense",p:"片語",zh:"值得花這筆錢",ex:"The tour will make you see why visiting Norway is well <mark>worth the expense</mark>.",exZh:"這趟旅程會讓你明白為什麼造訪挪威物超所值。"}
+];
+const T_QS=[
+ {id:"t1",cat:"vocab",s:"You can find out where a country is on a world map by looking at its ___.",a:"latitude",o:["altitude","attitude","gratitude"],zh:"看緯度就能找出國家在地圖上的位置。",tip:"latitude 緯度 vs. longitude 經度"},
+ {id:"t2",cat:"vocab",s:"We were all ___ tired after our long hike in the mountains.",a:"extremely",o:["abundantly","inland","heavenly"],zh:"長途健行後我們都非常累。",tip:"修飾形容詞 tired 用副詞"},
+ {id:"t3",cat:"vocab",s:"Fiji is often described by visitors as a ___ place.",a:"heavenly",o:["steeply","extremely","abundantly"],zh:"斐濟常被形容為天堂般的地方。",tip:"heavenly 雖然 -ly 結尾，卻是形容詞（名詞 + ly）"},
+ {id:"t4",cat:"vocab",s:"Alan found it difficult to ___ all the information that was given to him.",a:"take in",o:["take off","take after","take over"],zh:"Alan 覺得很難吸收所有資訊。",tip:"take off 起飛；take after 像（長輩）；take over 接管"},
+ {id:"t5",cat:"vocab",s:"Unfortunately I don't have the ___ to go on vacation with you this year.",a:"budget",o:["glacier","folklore","latitude"],zh:"很遺憾我今年沒有預算和你去度假。"},
+ {id:"t6",cat:"vocab",s:"Many tales from ancient ___ have been the subject of popular Disney movies.",a:"folklore",o:["glaciers","budgets","cliffs"],zh:"許多古代民間傳說成了迪士尼電影的題材。"},
+ {id:"t7",cat:"vocab",s:"My grandmother lives in a ___ area where there are many farms.",a:"rural",o:["urban","steep","heavenly"],zh:"祖母住在有許多農場的鄉村地區。"},
+ {id:"t8",cat:"vocab",s:"If you have never visited another country, it's time you ___ your horizons.",a:"broadened",o:["broaden","broadening","will broaden"],zh:"是時候拓展你的視野了。",tip:"It's time + S + Ved"},
+ {id:"t9",cat:"vocab",s:"From the edge of the ___, James had a good view of the beach below.",a:"cliff",o:["glacier","budget","latitude"],zh:"從懸崖邊可以俯瞰海灘。"},
+ {id:"t10",cat:"vocab",s:"People decided to live here because the land has many natural ___.",a:"resources",o:["resource","resourceful","abundance"],zh:"這片土地擁有豐富的自然資源。",tip:"many + 複數名詞"},
+ {id:"t11",cat:"vocab",s:"The South Pole is one of the most ___ places on Earth.",a:"isolated",o:["civilized","urban","resourceful"],zh:"南極是地球上最偏遠的地方之一。"},
+ {id:"t12",cat:"vocab",s:"Kylie moved to a(n) ___ area when she was offered a new job.",a:"urban",o:["extreme","renewable","steep"],zh:"Kylie 得到新工作時搬到都市。"},
+ {id:"t13",cat:"vocab",s:"Our trip to London included a lot of ___ and theater.",a:"sightseeing",o:["awe","isolation","ownership"],zh:"倫敦之旅有很多觀光和看劇。"},
+ {id:"t14",cat:"vocab",s:"Lorna's dad always has to ___ her around from place to place.",a:"ferry",o:["travel","steep","civilize"],zh:"Lorna 的爸爸總要載她到處跑。",tip:"travel 不能直接接人當受詞"},
+ {id:"t15",cat:"vocab",s:"The tourists were told to move ___ to avoid the storm at the coast.",a:"inland",o:["severely","abundantly","extraordinarily"],zh:"遊客往內陸移動以躲避海岸暴風雨。"},
+ {id:"t16",cat:"vocab",s:"Fred was breathing hard as he walked up the ___ hill.",a:"steep",o:["isolated","resourceful","civilized"],zh:"Fred 爬陡坡時喘得很厲害。"},
+ {id:"t17",cat:"vocab",s:"The ancient monuments in Egypt are some of the most ___ sights in the world.",a:"awe-inspiring",o:["inland","urban","resourceful"],zh:"埃及古蹟是世界上最令人驚嘆的景觀之一。"},
+ {id:"t18",cat:"vocab",s:"One sign of climate change is that ___ are melting faster than in the past.",a:"glaciers",o:["altitudes","budgets","civilians"],zh:"冰河融化得比以前快。"},
+ {id:"t19",cat:"vocab",s:"After such a warm summer, we will have a(n) ___ of garden vegetables.",a:"abundance",o:["heaven","glacier","resource"],zh:"菜園會大豐收。",tip:"an abundance of + N"},
+ {id:"t20",cat:"vocab",s:"Children often learn about the ancient Roman and Greek ___ at school.",a:"civilizations",o:["isolation","magnificence","gratitude"],zh:"孩子們在學校學古羅馬和古希臘文明。"},
+ {id:"t21",cat:"cloze",ctx:"nor",s:"Norway is a high-latitude country with an abundance of natural ___.",a:"resources",o:["steep","folklore","sightseeing","civilization"],zh:"挪威擁有豐富的自然資源。",tip:"an abundance of + 形容詞 + 複數名詞"},
+ {id:"t22",cat:"cloze",ctx:"nor",s:"It is famous for Viking ___ and for being an expensive place to visit if you are on a budget.",a:"folklore",o:["steep","resources","sightseeing","civilization"],zh:"挪威以維京民間傳說聞名。"},
+ {id:"t23",cat:"cloze",ctx:"nor",s:"A popular ___ tour lets travelers take in magnificent sights.",a:"sightseeing",o:["steep","folklore","resources","civilization"],zh:"熱門的觀光行程讓旅客欣賞壯麗景色。"},
+ {id:"t24",cat:"cloze",ctx:"nor",s:"Visitors will be amazed by ___, awe-inspiring cliffs cut out by glaciers.",a:"steep",o:["folklore","resources","sightseeing","civilization"],zh:"遊客會對冰河切出的陡峭懸崖感到驚奇。",tip:"修飾 cliffs 需要形容詞，五個選項只有 steep 是形容詞"},
+ {id:"t25",cat:"cloze",ctx:"nor",s:"Boats also pass by small, rural villages and farms, which show what ___ is like in this isolated world.",a:"civilization",o:["steep","folklore","resources","sightseeing"],zh:"展現這個偏遠世界的文明樣貌。",tip:"what + S + is like 名詞子句；resources 是複數，不配 is"},
+ {id:"t26",cat:"read",ctx:"ala",s:"How might someone who has visited Alaska describe their experience?",a:"As being something they will never forget",o:["As being very expensive","As being very cold","As being something they would not repeat"],zh:"第一句：an unforgettable experience = 永生難忘。",tip:"文章沒提到 cold，別靠常識作答！"},
+ {id:"t27",cat:"read",ctx:"ala",s:"What are you NOT likely to see in Alaska?",a:"Penguins",o:["Glaciers","Eagles","Bears"],zh:"文中提到 bears、eagles、100,000 glaciers，沒有企鵝。"},
+ {id:"t28",cat:"read",ctx:"ala",s:"What is a reason why sightseeing in Alaska can be challenging?",a:"Some parts cannot be reached by road.",o:["There are too many native tribes.","There are not many people.","You might be attacked by a bear."],zh:"挑戰的原因：面積大、荒野無公路可達、費用高。",tip:"同義改寫：can't be reached by road"}
+];
+
+const UNITS={
+ u3:{chip:"Unit 3 普羅米修斯",title:"Unit 3 普羅米修斯的火種",sub:"Prometheus: The Champion of Humankind",cards:CARDS,qs:QS,passages:{}},
+ lt:{chip:"LT302 B3U2",title:"LT302 團隊合作大挑戰",sub:"Marshmallow Challenge・Baker King・Ten-Year Challenge",cards:LT_CARDS,qs:LT_QS,passages:{marsh:{t:"棉花糖挑戰（克漏字）",h:P_MARSH},ten:{t:"Ten-Year Challenge（閱讀）",h:P_TEN}}},
+ t4:{chip:"高頻 Test 04",title:"高頻 Test 04 旅行與地理",sub:"Norway・Alaska・Geography Words",cards:T_CARDS,qs:T_QS,passages:{nor:{t:"Norway（文意選填）",h:P_NOR},ala:{t:"Alaska（閱讀測驗）",h:P_ALA}}}
+};
+for(const [k,u] of Object.entries(UNITS)){u.cards.forEach(c=>c.unit=k);u.qs.forEach(q=>q.unit=k);}
+const ALLCARDS=Object.values(UNITS).flatMap(u=>u.cards);
+
 const LEVELS=["草原見習生","藍天學徒","雲朵騎士","彩虹魔導士","星辰守護者","普羅米修斯之火"];
 const ACHS=[
  {id:"flip1",ic:"🎴",n:"第一張卡",d:"翻開第一張卡片",ok:s=>s.flips>=1},
  {id:"flip50",ic:"🌀",n:"翻卡達人",d:"翻卡 50 次",ok:s=>s.flips>=50},
+ {id:"flip200",ic:"🌪️",n:"翻卡旋風",d:"翻卡 200 次",ok:s=>s.flips>=200},
  {id:"listen20",ic:"🎧",n:"耳朵好靈",d:"聽發音 20 次",ok:s=>s.listen>=20},
+ {id:"listen100",ic:"🎙️",n:"跟讀小達人",d:"聽發音 100 次",ok:s=>s.listen>=100},
  {id:"know10",ic:"🌱",n:"發芽了",d:"記住 10 張卡",ok:s=>s.known.length>=10},
- {id:"know25",ic:"🌷",n:"開花了",d:"記住 25 張卡",ok:s=>s.known.length>=25},
- {id:"knowall",ic:"🌈",n:"全部收服",d:`記住全部 ${CARDS.length} 張卡`,ok:s=>s.known.length>=CARDS.length},
+ {id:"know50",ic:"🌷",n:"開花了",d:"記住 50 張卡",ok:s=>s.known.length>=50},
+ {id:"knowall",ic:"🌈",n:"全部收服",d:`記住全部 ${ALLCARDS.length} 張卡`,ok:s=>s.known.length>=ALLCARDS.length},
  {id:"quiz1",ic:"✏️",n:"初次挑戰",d:"完成一次測驗",ok:s=>s.quizzes>=1},
  {id:"quiz10",ic:"📚",n:"勤勞小蜜蜂",d:"完成 10 次測驗",ok:s=>s.quizzes>=10},
+ {id:"units3",ic:"🗺️",n:"三地冒險家",d:"三個單元都完成過測驗",ok:s=>s.unitsDone.length>=3},
  {id:"perfect",ic:"💯",n:"滿分！",d:"任一測驗全對",ok:s=>s.perfect>=1},
  {id:"prep",ic:"🎯",n:"介系詞剋星",d:"介系詞特訓全對",ok:s=>s.prepPerfect>=1},
+ {id:"cloze",ic:"📰",n:"克漏字高手",d:"克漏字全對",ok:s=>s.clozePerfect>=1},
+ {id:"read",ic:"🔎",n:"線索偵探",d:"閱讀測驗全對",ok:s=>s.readPerfect>=1},
  {id:"streak5",ic:"🔥",n:"小火苗",d:"連續答對 5 題",ok:s=>s.bestStreak>=5},
  {id:"streak15",ic:"☄️",n:"盜火者",d:"連續答對 15 題",ok:s=>s.bestStreak>=15},
  {id:"fixer",ic:"🩹",n:"知錯能改",d:"在錯題練習答對 5 題",ok:s=>s.fixed>=5},
@@ -401,10 +616,11 @@ const ACHS=[
 
 /* ---------- state ---------- */
 const KEY="u3-prometheus-v1";
-const fresh=()=>({autoSay:false,xp:0,flips:0,listen:0,known:[],quizzes:0,perfect:0,prepPerfect:0,bestStreak:0,fixed:0,ach:{},wrong:{},muted:false});
+const fresh=()=>({autoSay:false,unit:"u3",xp:0,flips:0,listen:0,known:[],quizzes:0,perfect:0,prepPerfect:0,clozePerfect:0,readPerfect:0,unitsDone:[],bestStreak:0,fixed:0,ach:{},wrong:{},muted:false});
 let S=fresh();
 try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(fresh(),JSON.parse(raw));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const strip=t=>t.replace(/<[^>]+>/g,"");
 
 /* ---------- sound ---------- */
 let actx;
@@ -482,32 +698,44 @@ function checkAch(){let got=false;for(const a of ACHS){if(!S.ach[a.id]&&a.ok(S))
   setTimeout(()=>{SFX.ach();rain();},150);toast(a.ic,"解鎖成就："+a.n,a.d);}}
   if(got){save();renderAch();}}
 
+/* ---------- unit ---------- */
+let UK=UNITS[S.unit]?S.unit:"u3",U=UNITS[UK];
+function renderUnit(){
+  document.getElementById("uTitle").textContent=U.title;document.getElementById("uSub").textContent=U.sub;
+  const el=document.getElementById("unitChips");
+  el.innerHTML=Object.entries(UNITS).map(([k,u])=>`<button data-u="${k}" class="${k===UK?"on":""}">${u.chip}</button>`).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{UK=b.dataset.u;U=UNITS[UK];S.unit=UK;save();SFX.tap();renderUnit();idx=0;buildDeck();Q=null;quizMenu();});
+}
+
 /* ---------- flashcards ---------- */
 let deck="all",list=[],idx=0;
 const cardEl=document.getElementById("card");
 function buildDeck(){
-  list=CARDS.filter(c=>deck==="all"||(deck==="todo"?!S.known.includes(c.id):c.t===deck));
+  list=U.cards.filter(c=>deck==="all"||(deck==="todo"?!S.known.includes(c.id):c.t===deck));
   if(idx>=list.length)idx=0;renderCard();
 }
 function renderCard(){
   const wasFlipped=cardEl.classList.contains("flipped");
   cardEl.classList.remove("flipped");
   const c=list[idx];
+  const knownHere=U.cards.filter(x=>S.known.includes(x.id)).length;
   if(!c){document.getElementById("fWord").textContent="全部記住了！";document.getElementById("fPos").textContent="換別的牌組，或去測驗試試";
-    document.getElementById("fBadge").textContent="🌈";document.getElementById("cardCount").textContent="";return;}
-  setTimeout(()=>{ // swap back after flip resets
+    document.getElementById("fBadge").textContent="🌈";document.getElementById("cardCount").textContent=`本單元已記住 ${knownHere} / ${U.cards.length}`;return;}
+  setTimeout(()=>{
     document.getElementById("bZh").textContent=c.zh;
-    document.getElementById("bEx").innerHTML=`<span class="en">${c.ex}</span>`;
+    document.getElementById("bEx").innerHTML=`<span class="en">${c.ex}</span>${c.exZh?`<div class="exzh">${c.exZh}</div>`:""}`;
     const tip=document.getElementById("bTip");tip.hidden=!c.tip;tip.textContent=c.tip?"⚠️ "+c.tip:"";
   },wasFlipped?320:0);
   document.getElementById("fWord").textContent=c.w;document.getElementById("fPos").textContent=c.p;
   document.getElementById("fBadge").textContent=S.known.includes(c.id)?"⭐":"";
-  document.getElementById("cardCount").textContent=`${idx+1} / ${list.length}　已記住 ${S.known.length} / ${CARDS.length}`;
+  document.getElementById("cardCount").textContent=`${idx+1} / ${list.length}　本單元已記住 ${knownHere} / ${U.cards.length}`;
 }
-function flip(){if(!list[idx])return;cardEl.classList.toggle("flipped");if(S.autoSay&&cardEl.classList.contains("flipped"))setTimeout(()=>speak(list[idx].ex),350);SFX.flip();S.flips++;if(S.flips%5===0)addXP(1);save();checkAch();}
+function flip(){if(!list[idx])return;cardEl.classList.toggle("flipped");SFX.flip();
+  if(S.autoSay&&cardEl.classList.contains("flipped"))setTimeout(()=>speak(list[idx].ex),350);
+  S.flips++;if(S.flips%5===0)addXP(1);save();checkAch();}
 cardEl.addEventListener("click",e=>{if(e.target.closest(".speak"))return;flip();});
 cardEl.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();}if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1);});
-document.getElementById("fSpeak").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].w)};
+document.getElementById("fSpeak").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].w.replace("…"," "),.88,e.currentTarget)};
 document.getElementById("bSpeak").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].ex,.88,e.currentTarget)};
 document.getElementById("bSlow").onclick=e=>{e.stopPropagation();list[idx]&&speak(list[idx].ex,.6,e.currentTarget)};
 const autoBox=document.getElementById("autoSay");autoBox.checked=!!S.autoSay;
@@ -527,60 +755,80 @@ document.querySelectorAll("#deckChips button").forEach(b=>b.onclick=()=>{
 const qBox=document.getElementById("quizBox");
 let Q=null;
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
-function vocabQs(n){return shuffle(CARDS).slice(0,n).map(c=>{
-  const others=shuffle(CARDS.filter(x=>x.id!==c.id&&x.t===c.t)).slice(0,3).map(x=>x.w);
-  return {id:"v-"+c.id,s:`「${c.zh}」的英文是？`,a:c.w,o:others,zh:c.ex.replace(/<[^>]+>/g,""),vocab:1,tip:c.tip};});}
+const catOf=q=>q.cat||(q.p?"prep":"vocab");
+const fill=q=>{const parts=q.a.split("; ");let i=0;return q.s.replace(/___/g,()=>parts[Math.min(i++,parts.length-1)]);};
+const sayOf=q=>q.vocabCard?strip(q.ex):catOf(q)==="read"?q.a:fill(q);
+function cardQ(c){
+  const pool=UNITS[c.unit].cards.filter(x=>x.id!==c.id);
+  let same=pool.filter(x=>x.t===c.t);if(same.length<3)same=pool;
+  return {id:"v-"+c.id,cat:"c2e",s:`「${c.zh}」的英文是？`,a:c.w,o:shuffle(same).slice(0,3).map(x=>x.w),zh:strip(c.ex),ex:c.ex,vocabCard:1,tip:c.tip,unit:c.unit};
+}
+const MODES=[
+ ["mix","🌟 綜合挑戰","隨機 10 題",qs=>shuffle(qs).slice(0,10)],
+ ["vocab","🔤 單字填空","句子裡選對的單字",qs=>shuffle(qs.filter(q=>catOf(q)==="vocab"))],
+ ["prep","🎯 介系詞特訓","into、to、from、on……最常錯",qs=>shuffle(qs.filter(q=>catOf(q)==="prep"))],
+ ["phrase","🧩 片語・句型","翻譯題裡的片語和文法",qs=>shuffle(qs.filter(q=>catOf(q)==="phrase"))],
+ ["cloze","📰 克漏字","看文章選答案",qs=>qs.filter(q=>catOf(q)==="cloze")],
+ ["read","📖 閱讀測驗","讀文章找線索",qs=>qs.filter(q=>catOf(q)==="read")],
+ ["c2e","🈶 中翻英","看中文選單字，隨機 10 題",()=>shuffle(U.cards).slice(0,10).map(cardQ)],
+ ["all","🔥 全部題目","一次衝完",qs=>shuffle(qs)]
+];
 function quizMenu(){
-  qBox.innerHTML=`<h2>選一種挑戰</h2><div class="modes">
-   <button class="mode" data-m="mix"><b>🌟 綜合挑戰</b><span>課本句子填空，隨機 10 題</span></button>
-   <button class="mode" data-m="prep"><b>🎯 介系詞特訓</b><span>into、to、from、on……最常錯的都在這</span></button>
-   <button class="mode" data-m="vocab"><b>🔤 中翻英</b><span>看中文選單字，隨機 10 題</span></button>
-   <button class="mode" data-m="all"><b>🔥 全部句子</b><span>27 題一次衝完</span></button>
-  </div>`;
+  const avail=MODES.filter(([m])=>["mix","c2e","all"].includes(m)||U.qs.some(q=>catOf(q)===m));
+  qBox.innerHTML=`<h2>${U.chip}・選一種挑戰</h2><div class="modes">${avail.map(([m,n,d])=>{
+    const cnt=m==="all"?U.qs.length:["vocab","prep","phrase","cloze","read"].includes(m)?U.qs.filter(q=>catOf(q)===m).length:0;
+    return `<button class="mode" data-m="${m}"><b>${n}</b><span>${d}${cnt?`（${cnt} 題）`:""}</span></button>`;}).join("")}</div>`;
   qBox.querySelectorAll(".mode").forEach(b=>b.onclick=()=>startQuiz(b.dataset.m));
 }
 function startQuiz(m,custom){
   SFX.tap();
-  let items= custom|| (m==="mix"?shuffle(QS).slice(0,10): m==="prep"?shuffle(QS.filter(q=>q.p)): m==="vocab"?vocabQs(10): shuffle(QS));
+  const items=custom||MODES.find(x=>x[0]===m)[3](U.qs);
   if(!items.length){quizMenu();return;}
-  Q={m,items,i:0,score:0,streak:0};renderQ();
+  Q={m,items,i:0,score:0,streak:0,unit:UK};renderQ();
 }
 function renderQ(){
   const q=Q.items[Q.i];const opts=shuffle([q.a,...q.o]);
-  const text=q.vocab?q.s:q.s.replace("___",'<span class="blank">?</span>');
-  qBox.innerHTML=`<div class="qtop"><span>第 ${Q.i+1} / ${Q.items.length} 題</span><span class="combo" id="combo">${Q.streak>=2?"🔥 連對 "+Q.streak:""}</span></div>
-   <div class="qtext ${q.vocab?"":"en"}">${text}${q.vocab?"":' <button class="exsay" id="qSay" aria-label="念題目">🔊</button>'}</div>
-   <div class="opts">${opts.map(o=>`<button class="opt en">${o}</button>`).join("")}</div>
+  const long=opts.some(o=>o.length>28);
+  const text=q.vocabCard?q.s:q.s.replace(/___/g,'<span class="blank">?</span>');
+  const pas=q.ctx?UNITS[q.unit].passages[q.ctx]:null;
+  qBox.innerHTML=`<div class="qtop"><span>第 ${Q.i+1} / ${Q.items.length} 題</span><span class="combo">${Q.streak>=2?"🔥 連對 "+Q.streak:""}</span></div>
+   ${pas?`<details class="ctx" ${catOf(q)==="read"?"open":""}><summary>📖 ${pas.t}</summary><div class="ptext en">${pas.h}</div>
+     <div class="legend"><b class="tw">轉折詞</b>　<span class="nc">名詞子句</span>　<button class="exsay" id="pSay" aria-label="念文章">🔊</button></div></details>`:""}
+   <div class="qtext ${q.vocabCard?"":"en"}">${text}${q.vocabCard?"":' <button class="exsay" id="qSay" aria-label="念題目">🔊</button>'}</div>
+   <div class="opts ${long?"long":""}">${opts.map(o=>`<button class="opt en">${o}</button>`).join("")}</div>
    <div class="feedback" id="fb"></div>
    <div class="qfoot" id="qfoot"></div>`;
   qBox.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b,q));
-  const qs=document.getElementById("qSay");if(qs)qs.onclick=()=>speak(q.s.replace("___","blank"),.88,qs);
+  const qs=document.getElementById("qSay");if(qs)qs.onclick=()=>speak(q.s.replace(/___/g,"blank"),.88,qs);
+  const ps=document.getElementById("pSay");if(ps)ps.onclick=e=>{e.preventDefault();speak(strip(pas.h),.88,ps);};
 }
 function answer(btn,q){
   const all=qBox.querySelectorAll(".opt");all.forEach(b=>b.disabled=true);
   const ok=btn.textContent===q.a;const fb=document.getElementById("fb");
-  const full=q.vocab?"":q.s.replace("___",q.a);
+  const extra=`${q.zh||""}${q.tip?"<br>💡 "+q.tip:""}`;
   if(ok){btn.classList.add("right");SFX.right();Q.score++;Q.streak++;
     if(Q.streak>S.bestStreak)S.bestStreak=Q.streak;
     const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top,18,.8);
     addXP(10+(Q.streak>=3?5:0),btn);
     if(Q.m==="mist"&&S.wrong[q.id]){delete S.wrong[q.id];S.fixed++;}
-    fb.className="feedback show good";fb.innerHTML=`${["太棒了！","完美！","答對了！","好厲害！"][Math.random()*4|0]} ${q.zh}${q.tip?"<br>💡 "+q.tip:""}`;
+    fb.className="feedback show good";fb.innerHTML=`${["太棒了！","完美！","答對了！","好厲害！"][Math.random()*4|0]} ${extra}`;
   }else{btn.classList.add("wrong");SFX.wrong();Q.streak=0;
     all.forEach(b=>{if(b.textContent===q.a)b.classList.add("right")});
     S.wrong[q.id]=(S.wrong[q.id]||0)+1;
-    fb.className="feedback show bad";fb.innerHTML=`正確答案是 <b class="en">${q.a}</b>。${q.zh}${q.tip?"<br>💡 "+q.tip:""}`;
+    fb.className="feedback show bad";fb.innerHTML=`正確答案是 <b class="en">${q.a}</b>。${extra}`;
   }
   save();checkAch();
   const foot=document.getElementById("qfoot");
-  foot.innerHTML=`${full?'<button class="btn no" id="sayQ">🔊 念整句</button>':'<button class="btn no" id="sayQ">🔊 聽發音</button>'}<button class="btn main" id="nextQ">${Q.i+1<Q.items.length?"下一題":"看結果"}</button>`;
-  document.getElementById("sayQ").onclick=()=>speak(full||q.a);
+  foot.innerHTML=`<button class="btn no" id="sayQ">🔊 ${q.vocabCard?"念例句":catOf(q)==="read"?"念答案":"念整句"}</button><button class="btn main" id="nextQ">${Q.i+1<Q.items.length?"下一題":"看結果"}</button>`;
+  document.getElementById("sayQ").onclick=e=>speak(sayOf(q),.88,e.currentTarget);
   document.getElementById("nextQ").onclick=()=>{Q.i++;Q.i<Q.items.length?renderQ():finish();};
   document.getElementById("nextQ").focus();
 }
 function finish(){
   const n=Q.items.length,pct=Q.score/n;S.quizzes++;
-  let bonus=20;if(Q.score===n){S.perfect++;bonus+=50;if(Q.m==="prep")S.prepPerfect++;}
+  if(Q.m!=="mist"&&!S.unitsDone.includes(Q.unit))S.unitsDone.push(Q.unit);
+  let bonus=20;if(Q.score===n){S.perfect++;bonus+=50;
+    if(Q.m==="prep")S.prepPerfect++;if(Q.m==="cloze")S.clozePerfect++;if(Q.m==="read")S.readPerfect++;}
   const stars=pct===1?3:pct>=.7?2:pct>=.4?1:0;
   qBox.innerHTML=`<div class="result"><div class="stars-row">${"⭐".repeat(stars)}${"☆".repeat(3-stars)}</div>
    <div class="big en">${Q.score} / ${n}</div>
@@ -596,46 +844,45 @@ function finish(){
 /* ---------- achievements & mistakes ---------- */
 function renderAch(){
   document.getElementById("statGrid").innerHTML=[
-    [S.known.length+"/"+CARDS.length,"已記住"],[S.quizzes,"測驗次數"],[S.bestStreak,"最高連對"],[Object.keys(S.ach).length+"/"+ACHS.length,"成就"]
+    [S.known.length+"/"+ALLCARDS.length,"已記住"],[S.quizzes,"測驗次數"],[S.bestStreak,"最高連對"],[Object.keys(S.ach).length+"/"+ACHS.length,"成就"]
   ].map(([b,s])=>`<div class="stat"><b class="en">${b}</b><small>${s}</small></div>`).join("");
   document.getElementById("achList").innerHTML=ACHS.map(a=>`<div class="ach ${S.ach[a.id]?"got":""}"><span class="ic">${a.ic}</span><b>${a.n}</b><small>${a.d}</small></div>`).join("");
 }
-function allQ(){return [...QS,...CARDS.map(c=>({id:"v-"+c.id,s:`「${c.zh}」的英文是？`,a:c.w,zh:c.ex.replace(/<[^>]+>/g,""),vocab:1,tip:c.tip,c}))];}
+function allQ(){return [...Object.values(UNITS).flatMap(u=>u.qs),...ALLCARDS.map(cardQ)];}
 function renderMist(){
   const pool=allQ().filter(q=>S.wrong[q.id]).sort((a,b)=>S.wrong[b.id]-S.wrong[a.id]);
   const el=document.getElementById("mistList");
   document.getElementById("mistQuizBtn").hidden=!pool.length;
-  el.innerHTML=pool.length?pool.map(q=>`<div class="mistake"><span class="times">錯 ${S.wrong[q.id]} 次</span><button class="exsay" data-say="${(q.vocab?q.zh:q.s.replace("___",q.a)).replace(/"/g,"&quot;")}" aria-label="念例句" style="float:right;margin-right:8px">🔊</button>
-    <div class="${q.vocab?"":"en"}">${q.vocab?q.s:q.s.replace("___",`<b style="color:var(--ribbon)">${q.a}</b>`)}</div>
-    ${q.vocab?`<div class="en" style="color:var(--ribbon);font-weight:700">${q.a}</div>`:""}
+  el.innerHTML=pool.length?pool.map(q=>`<div class="mistake"><span class="times">錯 ${S.wrong[q.id]} 次</span>
+    <button class="exsay" data-say="${sayOf(q).replace(/"/g,"&quot;")}" aria-label="念句子" style="float:right;margin-right:8px">🔊</button>
+    <span class="utag">${UNITS[q.unit].chip}</span>
+    <div class="${q.vocabCard?"":"en"}">${q.vocabCard?q.s:catOf(q)==="read"?q.s+`<br><b style="color:var(--ribbon)">${q.a}</b>`:q.s.replace(/___/g,`<b style="color:var(--ribbon)">${q.a}</b>`)}</div>
+    ${q.vocabCard?`<div class="en" style="color:var(--ribbon);font-weight:700">${q.a}</div>`:""}
     ${q.tip?`<small style="color:var(--ink-soft)">💡 ${q.tip}</small>`:""}</div>`).join("")
     :`<div class="empty">目前沒有錯題 🎉<br>去測驗挑戰看看，答錯的題目會自動收進來。</div>`;
 }
 document.getElementById("mistList").addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b)speak(b.dataset.say,.88,b);});
 function mistQuiz(){
-  const pool=allQ().filter(q=>S.wrong[q.id]).map(q=>{
-    if(q.o)return q;
-    const others=shuffle(CARDS.filter(x=>x.w!==q.a&&x.t===q.c.t)).slice(0,3).map(x=>x.w);return {...q,o:others};});
+  const pool=allQ().filter(q=>S.wrong[q.id]);
   if(!pool.length){renderMist();return;}
   switchTab("quiz");startQuiz("mist",shuffle(pool));
 }
 document.getElementById("mistQuizBtn").onclick=mistQuiz;
-document.getElementById("resetBtn").onclick=()=>{if(confirm("確定要清除所有進度、成就和錯題嗎？")){const m=S.muted;S=fresh();S.muted=m;save();renderHUD();renderAch();renderMist();buildDeck();}};
+document.getElementById("resetBtn").onclick=()=>{if(confirm("確定要清除所有進度、成就和錯題嗎？")){const m=S.muted,u=S.unit;S=fresh();S.muted=m;S.unit=u;save();renderHUD();renderAch();renderMist();buildDeck();}};
 
 /* ---------- tabs ---------- */
 function switchTab(t){
   document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="p-"+t));
-  if(t==="ach")renderAch();if(t==="mist")renderMist();if(t==="quiz"&&(!Q||!qBox.innerHTML))quizMenu();
+  if(t==="ach")renderAch();if(t==="mist")renderMist();if(t==="quiz"&&!qBox.innerHTML)quizMenu();
 }
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{SFX.tap();switchTab(b.dataset.tab);});
 document.getElementById("muteBtn").onclick=()=>{S.muted=!S.muted;save();renderHUD();SFX.tap();};
 
-/* night stars */
 const st=document.getElementById("stars");
 for(let i=0;i<40;i++){const s=document.createElement("i");s.style.left=Math.random()*100+"%";s.style.top=Math.random()*60+"%";s.style.animationDelay=Math.random()*3+"s";st.appendChild(s);}
 
-renderHUD();buildDeck();quizMenu();renderAch();renderMist();
+renderHUD();renderUnit();buildDeck();quizMenu();renderAch();renderMist();
 </script>
 </body>
 </html>
